@@ -15,5 +15,6 @@ export default function home(match) {
             <li>session history</li>
             <li>manage your exercises</li>
         </ol>
+        <my-element>hey</my-element>
     `)
 }
