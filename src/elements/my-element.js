@@ -42,11 +42,11 @@ export class MyElement extends TrakElement {
         </a>
       </div>
       <slot></slot>
-      <div class="card">
+      <article>
         <button @click=${this._onClick} part="button">
           count is ${this.count}
         </button>
-      </div>
+      </article>
       <p class="read-the-docs">${this.docsHint}</p>
     `
   }

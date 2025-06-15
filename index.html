@@ -1,16 +1,19 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vite + Lit</title>
-    <link rel="stylesheet" href="css/pico.jade.min.css" />
+    <link rel="stylesheet" href="css/pico.jade.min.css"/>
+    <script type="module">
+        import Routes from "/src/routes.js";
+        window.addEventListener("load", () => Routes().resolve());
+    </script>
     <script type="module" src="/src/elements/my-element.js"></script>
-  </head>
-  <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-    </my-element>
-  </body>
+</head>
+<body>
+    <main id="app" class="container-fluid">
+    </main>
+</body>
 </html>
