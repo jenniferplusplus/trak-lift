@@ -16,10 +16,10 @@ export class ExerciseWeight extends Exercise {
     kind = 'weight';
     /** @var {Number} weight */
     weight;
-    /** @var {Number} reps */
-    reps;
+    /** @var {Number} reps=1 */
+    reps = 1;
     /** @var {Number} sets=1 */
-    sets;
+    sets = 1;
 }
 
 export class ExerciseDistance extends Exercise {
@@ -70,8 +70,12 @@ export class PlanFlow extends Plan {
 }
 
 export class Session {
+    /** @var {Date} start */
     start;
+    /** @var {Date} stop */
     stop;
+    /** @var {[Exercise]} exercises */
     exercises;
+    /** @var {string} routine */
     routine;
 }

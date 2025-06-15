@@ -1,0 +1,735 @@
+[
+  {
+    "kind": "weight",
+    "name": "Bench Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Deadlift",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Overhead Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Barbell Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Pull Up",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Tricep Extension",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Fly",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Lateral Raise",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Front Raise",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Shoulder Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Shrug",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Calf Raise",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Crunch",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Russian Twist",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Side Bend",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Arnolds",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Hip Flexor Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Lat Pulldown",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Bench Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Incline Bench Press",
+    "sets": 1
+  },
+  {
+    "kind": "distance",
+    "name": "Run"
+  },
+  {
+    "kind": "distance",
+    "name": "Sprint"
+  },
+  {
+    "kind": "effort",
+    "name": "Jump Rope"
+  },
+  {
+    "kind": "distance",
+    "name": "Swim"
+  },
+  {
+    "kind": "distance",
+    "name": "Bike"
+  },
+  {
+    "kind": "effort",
+    "name": "Row"
+  },
+  {
+    "kind": "distance",
+    "name": "Climb"
+  },
+  {
+    "kind": "distance",
+    "name": "Hike"
+  },
+  {
+    "kind": "distance",
+    "name": "Walk"
+  },
+  {
+    "kind": "weight",
+    "name": "Pullup",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dip",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Pushup",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Situp",
+    "sets": 1
+  },
+  {
+    "kind": "exercise",
+    "name": "Plank"
+  },
+  {
+    "kind": "weight",
+    "name": "Crunch",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Leg Raise",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Flutter Kick",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Bicycle Crunch",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Russian Twist",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Mountain Climber",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Burpee",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Jumping Jack",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "High Knees",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Jump Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Leg Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Leg Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Leg Extension",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Skull Crusher",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Hammer Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Reverse Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Preacher Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Tricep Pull Down",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Bulgarian Split Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Horizontal Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Chest Press Machine",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Incline Chest Press Machine",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Chest Fly Machine (Pec Deck)",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Incline Dumbbell Flys",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Overhead Dumbbell Triceps Extension",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Triceps Rope Pushdowns",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Lat Pulldown Machine",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Seated Cable Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "One-arm Dumbbell Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Deadlifts (light/moderate)",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Bicep Curls",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Cable Curls",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Goblet Squats (Dumbbell)",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Romanian Dumbbell Deadlifts",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Lying Leg Curl Machine",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Standing Calf Raises",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Hanging Leg Raises",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Seated Dumbbell Shoulder Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Reverse Pec Deck",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Cable Triceps Extensions",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Dumbbell Clean & Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Cable Woodchoppers",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Weighted Sit-ups",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Swing",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Turkish Get-Up",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Clean",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Snatch",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Goblet Squat (Kettlebell)",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Windmill",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Farmer's Carry",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Russian Twist",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Figure 8",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Halo",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell High Pull",
+    "sets": 1
+  },
+  {
+    "kind": "effort",
+    "name": "Battle Ropes"
+  },
+  {
+    "kind": "weight",
+    "name": "Medicine Ball Slam",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Box Jumps",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Sandbag Carry",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Renegade Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Farmer's Walk",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Deadlift",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Front Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Racked Carry",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Kettlebell Bottoms-Up Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Sled Push",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Sled Pull",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "TRX Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "TRX Chest Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "TRX Pike",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Wall Ball",
+    "sets": 1
+  },
+  {
+    "kind": "distance",
+    "name": "Assault Bike"
+  },
+  {
+    "kind": "distance",
+    "name": "Ski Erg"
+  },
+  {
+    "kind": "distance",
+    "name": "Stair Climber"
+  },
+  {
+    "kind": "weight",
+    "name": "Glute Bridge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Hip Thrust",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Donkey Kick",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Fire Hydrant",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Bird Dog",
+    "sets": 1
+  },
+  {
+    "kind": "effort",
+    "name": "Superman"
+  },
+  {
+    "kind": "weight",
+    "name": "Inchworm",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Bear Crawl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Crab Walk",
+    "sets": 1
+  },
+  {
+    "kind": "exercise",
+    "name": "Handstand Hold"
+  },
+  {
+    "kind": "exercise",
+    "name": "Wall Sit"
+  },
+  {
+    "kind": "weight",
+    "name": "Pistol Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Box Step-Up",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Reverse Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Curtsy Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Side Lunge",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Good Morning",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Seated Row Machine",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Pec Deck Reverse Fly",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Cable Face Pull",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Scapular Pull-Up",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Archer Push-Up",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Planche Lean",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Nordic Hamstring Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Jefferson Curl",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Sissy Squat",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Reverse Hyperextension",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Landmine Press",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Landmine Row",
+    "sets": 1
+  },
+  {
+    "kind": "weight",
+    "name": "Zercher Squat",
+    "sets": 1
+  },
+  {
+    "kind": "exercise",
+    "name": "Copenhagen Plank"
+  },
+  {
+    "kind": "exercise",
+    "name": "L-Sit"
+  },
+  {
+    "kind": "exercise",
+    "name": "Tuck Planche"
+  },
+  {
+    "kind": "weight",
+    "name": "Serratus Push-Up",
+    "sets": 1
+  },
+  {
+    "kind": "exercise",
+    "name": "Isometric Dead Hang"
+  },
+  {
+    "kind": "weight",
+    "name": "Cable Wood Chopper"
+  }
+]
