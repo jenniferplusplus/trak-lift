@@ -4,15 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "idb": "^8.0.3",
     "lit": "^3.3.0",
     "navigo": "^8.11.1"
   },
   "devDependencies": {
+    "fake-indexeddb": "^6.0.1",
     "vite": "^6.3.5"
   }
 }
