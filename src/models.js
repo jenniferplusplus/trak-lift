@@ -43,32 +43,6 @@ export class Routine {
     exercises = [];
 }
 
-export class Plan {
-    /** @var {string} kind */
-    kind;
-    /** @var {string} name */
-    name;
-    /** @var {[Routine]} routines */
-    routines = [];
-}
-
-export class PlanSchedule extends Plan {
-    kind = 'schedule';
-    /** @var {CronString} schedule */
-    schedule;
-}
-
-export class PlanFlow extends Plan {
-    kind = 'flow';
-    /** @var {FlowString} flow */
-    flow;
-    // TBD, but I'm imagining something like E = exercise, R = rest, _ = range
-    // Ex: E_ R E__
-    // day 1 or 2: exercise
-    // day 3: rest
-    // day 4, 5 or 6: exercise
-}
-
 export class Session {
     /** @var {Date} start */
     start;
@@ -78,4 +52,26 @@ export class Session {
     exercises;
     /** @var {string} routine */
     routine;
+}
+
+// wip
+export class Plan {
+    /** @var {string} kind */
+    kind;
+    /** @var {string} name */
+    name;
+}
+
+// wip
+export class PlanSchedule extends Plan {
+    kind = 'schedule';
+    /** @var {[{cron: string, routine: Routine}]} plan */
+    plan;
+}
+
+// wip
+export class PlanFlow extends Plan {
+    kind = 'flow';
+    /** @var {[Routine]} plan */
+    plan;
 }
