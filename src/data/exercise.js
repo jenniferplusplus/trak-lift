@@ -18,7 +18,7 @@ class Exercise {
     }
 
     async reload() {
-        const json = await fetch('/public/exercises.json').then(res => res.json());
+        const json = await fetch('/exercises.json').then(res => res.json());
         const db = await Db();
         const tx = db.transaction(Store, 'readwrite');
         const adds = json.data.map(async (row) => {
@@ -37,7 +37,7 @@ class Exercise {
      * @param {IDBTransaction?} tx
      * @returns {Promise<ExerciseModel>}
      */
-    async get(name, tx=null) {
+    async get(name, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
         return await tx.store.get(name);
     }
@@ -45,24 +45,25 @@ class Exercise {
     /**
      *
      * @param {string?} key - Key to begin iteration
-     * @returns {Promise<*>}
+     * @returns {Promise<[ExerciseModel]>}
      */
-    async all(key=null){
+    async all(key = null) {
         const db = await Db();
-        return await db.transaction(Store).store.openCursor(key);
+        const cursor = await db.transaction(Store).store.openCursor(key);
+        return collect(cursor);
     }
 
     /**
      * @arg {string} name
      * @arg {number} page=0
-     * @returns {Promise<AsyncGenerator<ExerciseModel>>}
+     * @returns {Ranked}
      */
-    async search(name, page=0) {
+    async search(name, page = 0) {
         const db = await Db();
         const tx = db.transaction(Store);
         const index = tx.objectStore(Store).index('tokens');
 
-        return textSearch(index, name);
+        return rank(textSearch(index, name));
     }
 
     /**
@@ -71,7 +72,7 @@ class Exercise {
      * @param {IDBTransaction?} tx
      * @returns {Promise<*>}
      */
-    async upsert(model, tx=null) {
+    async upsert(model, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
         model.tokens = tokenize(model.name);
 
@@ -84,11 +85,65 @@ class Exercise {
      * @param {IDBTransaction?} tx
      * @returns {Promise<*>}
      */
-    async remove(name, tx=null) {
+    async remove(name, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
 
         return await tx.store.delete(name);
     }
+}
+
+export class Ranked {
+    _rank = -1;
+    _pages = [];
+    values = {};
+    rankedValues = [];
+    rankedKeys = {};
+
+    constructor() {
+    }
+
+    pages() {
+        return this.rankedValues?.length;
+    }
+
+    page(rank = null) {
+        const r = rank ?? --this._rank;
+        // if (rank === null && this._rank >= 0) this._rank--;
+        return this.rankedValues[r];
+    }
+
+    add(value, key) {
+        this.values[key] = value;
+        let rank = this.rankedKeys[key] ?? 0;
+        rank++;
+        this.rankedKeys[key] = rank;
+    }
+
+    finalize() {
+        Object.keys(this.rankedKeys).forEach((key) => {
+            this.rankedValues[this.rankedKeys[key]] ??= [];
+            this.rankedValues[this.rankedKeys[key]].push(this.values[key]);
+        });
+        this.rankedValues = this.rankedValues.filter(n => n);
+        this._rank = this.rankedValues.length;
+    }
+}
+
+async function rank(iterable) {
+    const ranked = new Ranked();
+    for await (const each of iterable) {
+        ranked.add(each, each.name);
+    }
+    ranked.finalize();
+    return ranked;
+}
+
+async function collect(cursor) {
+    const collection = [];
+    for await (const each of cursor) {
+        collection.push(each.value);
+    }
+    return collection;
 }
 
 const singleton = new Exercise();

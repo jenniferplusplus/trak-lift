@@ -33,14 +33,9 @@ suite('Exercise', async () => {
 
     test('should iterate all exercises', async () => {
         let all = await exercise.all();
-        assert.ok(all !== null);
-        let count = 0;
-        for await (const each of all)
-        {
-            count++;
-        }
 
-        assert.ok(count === 151);
+        assert.ok(Array.isArray(all), typeof all);
+        assert.ok(all.length === 151, all.length);
     });
 
     test('should search for exercises', async () => {
@@ -49,22 +44,14 @@ suite('Exercise', async () => {
 
         try {
             const results = await exercise.search('dumbell press');
-            for await (const each of results) {
-                set.add(each.name);
-                each._sort = matches[each.name]?._sort ?? 0;
-                each._sort++;
-                matches[each.name] = each;
-            }
+            assert.ok(results);
+            assert.ok(results.pages());
+            const page = results.page();
+            assert.ok(page.length === 5, JSON.stringify(page.map(e => e.name)))
+            assert.ok(page !== results.page())
         } catch (e) {
-            console.log(e)
+            assert.fail(e);
         }
-
-        assert.ok(set.size === 85, set.size);
-        // const first = Object.values(matches)
-        //     .sort((l, r) => r._sort - l._sort)
-        //     .slice(0, 10)
-        //     .map(e => e.name)
-        // assert.ok(false, JSON.stringify(first))
     });
 
     test('should add a new exercise', async () => {
