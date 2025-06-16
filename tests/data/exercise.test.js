@@ -5,6 +5,7 @@ import json from '../../public/exercises.json' with { type: 'json' };
 
 import {Db, tokenize} from "../../src/data/db.js";
 import exercise from '../../src/data/exercise.js';
+import {Exercise} from "../../src/models.js";
 
 suite('Exercise', async () => {
     before(async () => {
@@ -25,6 +26,11 @@ suite('Exercise', async () => {
         }
     });
 
+    test('should get an exercise by name', async () => {
+       const result = await exercise.get('Zercher Squat');
+       assert.ok(result.kind === 'weight', JSON.stringify(result));
+    });
+
     test('should iterate all exercises', async () => {
         let all = await exercise.all();
         assert.ok(all !== null);
@@ -37,7 +43,7 @@ suite('Exercise', async () => {
         assert.ok(count === 151);
     });
 
-    test('should search for an exercise', async () => {
+    test('should search for exercises', async () => {
         const set = new Set();
         const matches = {};
 
@@ -59,5 +65,17 @@ suite('Exercise', async () => {
         //     .slice(0, 10)
         //     .map(e => e.name)
         // assert.ok(false, JSON.stringify(first))
-    })
+    });
+
+    test('should add a new exercise', async () => {
+        var ex = new Exercise();
+        ex.name = 'Telekinesis';
+
+        const result = await exercise.upsert(ex);
+        assert.ok(result, JSON.stringify(result));
+    });
+
+    test('should remove an exercise', async () => {
+        await assert.doesNotThrow(async () => await exercise.remove('Copenhagen Plank'));
+    });
 })

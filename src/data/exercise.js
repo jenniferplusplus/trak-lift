@@ -22,8 +22,8 @@ class Exercise {
         const db = await Db();
         const tx = db.transaction(Store, 'readwrite');
         const adds = json.data.map(async (row) => {
-            return await tx.store.get(row.name) || this.upsert(tx, row);
-        })
+            return await tx.store.get(row.name) || this.upsert(row, tx);
+        });
 
         await Promise.all([
             ...adds,
@@ -32,13 +32,24 @@ class Exercise {
     }
 
     /**
-     // * @arg {number} page
-     // * @returns  Promise<IDBCursorWithValue>
+     *
+     * @param {string} name
+     * @param {IDBTransaction?} tx
+     * @returns {Promise<ExerciseModel>}
      */
-    async all(page){
+    async get(name, tx=null) {
+        tx ??= (await Db()).transaction(Store, 'readwrite');
+        return await tx.store.get(name);
+    }
+
+    /**
+     *
+     * @param {string?} key - Key to begin iteration
+     * @returns {Promise<*>}
+     */
+    async all(key=null){
         const db = await Db();
-        const cursor = await db.transaction(Store).store.openCursor();
-        return cursor;
+        return await db.transaction(Store).store.openCursor(key);
     }
 
     /**
@@ -56,14 +67,27 @@ class Exercise {
 
     /**
      *
-     * @param {IDBTransaction} tx
      * @param {ExerciseModel} model
-     * @returns {Promise<void>}
+     * @param {IDBTransaction?} tx
+     * @returns {Promise<*>}
      */
-    async upsert(tx, model) {
+    async upsert(model, tx=null) {
+        tx ??= (await Db()).transaction(Store, 'readwrite');
         model.tokens = tokenize(model.name);
 
-        return await tx.store.put(model)
+        return await tx.store.put(model);
+    }
+
+    /**
+     *
+     * @param name
+     * @param {IDBTransaction?} tx
+     * @returns {Promise<*>}
+     */
+    async remove(name, tx=null) {
+        tx ??= (await Db()).transaction(Store, 'readwrite');
+
+        return await tx.store.delete(name);
     }
 }
 
