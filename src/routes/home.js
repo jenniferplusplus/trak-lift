@@ -13,7 +13,7 @@ export default function home(match) {
             <li>manage your routines</li>
             <li>start a session</li>
             <li>session history</li>
-            <li>manage your exercises</li>
+            <li><a href="/exercises" data-navigo>manage your exercises</a></li>
         </ol>
         <my-element>hey</my-element>
     `)

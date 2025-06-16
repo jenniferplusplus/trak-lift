@@ -10,7 +10,10 @@
         import Routes from "/src/routes.js";
         window.addEventListener("load", () => Routes().resolve());
     </script>
-    <script type="module" src="/src/elements/my-element.js"></script>
+    <script type="module">
+        import {ManageExercises} from "/src/elements/manage-exercises.js";
+        import {MyElement} from "./src/elements/my-element.js";
+    </script>
 </head>
 <body>
     <main id="app" class="container-fluid">
