@@ -1,5 +1,5 @@
 import {Exercise as ExerciseModel} from "../models.js";
-import {Db} from "./db.js";
+import {Db, tokenize, textSearch} from "./db.js";
 
 const Store = 'exercises';
 
@@ -22,7 +22,7 @@ class Exercise {
         const db = await Db();
         const tx = db.transaction(Store, 'readwrite');
         const adds = json.data.map(async (row) => {
-            return await tx.store.get(row.name) || tx.store.add(row);
+            return await tx.store.get(row.name) || this.upsert(tx, row);
         })
 
         await Promise.all([
@@ -44,10 +44,26 @@ class Exercise {
     /**
      * @arg {string} name
      * @arg {number} page=0
-     * @returns [{ExerciseModel}]
+     * @returns {Promise<AsyncGenerator<ExerciseModel>>}
      */
-    search(name, page=0) {
+    async search(name, page=0) {
+        const db = await Db();
+        const tx = db.transaction(Store);
+        const index = tx.objectStore(Store).index('tokens');
 
+        return textSearch(index, name);
+    }
+
+    /**
+     *
+     * @param {IDBTransaction} tx
+     * @param {ExerciseModel} model
+     * @returns {Promise<void>}
+     */
+    async upsert(tx, model) {
+        model.tokens = tokenize(model.name);
+
+        return await tx.store.put(model)
     }
 }
 

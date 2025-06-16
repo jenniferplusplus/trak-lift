@@ -10,6 +10,7 @@ export class Exercise {
     stop;
     /** @var {URL} [guide] */
     guide;
+    tokens;
 }
 
 export class ExerciseWeight extends Exercise {
