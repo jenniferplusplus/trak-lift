@@ -45,12 +45,12 @@ class Exercise {
     /**
      *
      * @param {string?} key - Key to begin iteration
-     * @returns {Promise<[ExerciseModel]>}
+     * @returns {Promise<Paged>}
      */
     async all(key = null) {
         const db = await Db();
-        const cursor = await db.transaction(Store).store.openCursor(key);
-        return collect(cursor);
+        const cursor = await db.transaction(Store).store.openCursor();
+        return page(cursor, 20);
     }
 
     /**
@@ -93,8 +93,7 @@ class Exercise {
 }
 
 export class Ranked {
-    _rank = -1;
-    _pages = [];
+    _rank = 0;
     values = {};
     rankedValues = [];
     rankedKeys = {};
@@ -102,14 +101,16 @@ export class Ranked {
     constructor() {
     }
 
+    page() {
+        return this._rank;
+    }
     pages() {
         return this.rankedValues?.length;
     }
 
-    page(rank = null) {
-        const r = rank ?? --this._rank;
-        // if (rank === null && this._rank >= 0) this._rank--;
-        return this.rankedValues[r];
+    next(index = null) {
+        const p = typeof index === 'number' ? index : this._rank++;
+        return this.rankedValues[p];
     }
 
     add(value, key) {
@@ -124,8 +125,36 @@ export class Ranked {
             this.rankedValues[this.rankedKeys[key]] ??= [];
             this.rankedValues[this.rankedKeys[key]].push(this.values[key]);
         });
-        this.rankedValues = this.rankedValues.filter(n => n);
-        this._rank = this.rankedValues.length;
+        this.rankedValues = this.rankedValues.filter(n => n).reverse();
+    }
+}
+
+export class Paged {
+    _page = 0;
+    _pages = [[]];
+    _pageSize;
+
+    constructor(pageSize) {
+        this._pageSize = pageSize;
+    }
+
+    page() {
+        return this._page;
+    }
+    pages() { return this._pages.length; }
+    next(index = null) {
+        const p = typeof index === 'number' ? index : this._page++;
+        return this._pages[p];
+    }
+    add(value) {
+        let page = this._pages[this._pages.length-1];
+        if (page.length >= this._pageSize) {
+            page = [];
+            this._pages.push(page);
+        }
+        page.push(value);
+        // this._pages[page] ??= [];
+        // this._pages[page].push(value);
     }
 }
 
@@ -138,12 +167,12 @@ async function rank(iterable) {
     return ranked;
 }
 
-async function collect(cursor) {
-    const collection = [];
+async function page(cursor, pageSize) {
+    const pages = new Paged(pageSize);
     for await (const each of cursor) {
-        collection.push(each.value);
+        pages.add(each.value, page);
     }
-    return collection;
+    return pages;
 }
 
 const singleton = new Exercise();

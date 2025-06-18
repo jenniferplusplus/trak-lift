@@ -34,8 +34,7 @@ suite('Exercise', async () => {
     test('should iterate all exercises', async () => {
         let all = await exercise.all();
 
-        assert.ok(Array.isArray(all), typeof all);
-        assert.ok(all.length === 151, all.length);
+        assert.ok(all.pages() === 8, all.pages());
     });
 
     test('should search for exercises', async () => {
@@ -46,9 +45,9 @@ suite('Exercise', async () => {
             const results = await exercise.search('dumbell press');
             assert.ok(results);
             assert.ok(results.pages());
-            const page = results.page();
+            const page = results.next();
             assert.ok(page.length === 5, JSON.stringify(page.map(e => e.name)))
-            assert.ok(page !== results.page())
+            assert.ok(page !== results.next())
         } catch (e) {
             assert.fail(e);
         }
