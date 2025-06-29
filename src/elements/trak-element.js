@@ -15,14 +15,16 @@ export class TrakElement extends LitElement {
     return getGlobalStyleSheets();
   }
 
-  init(){
-    useGlobalStyles(this.shadowRoot);
-  }
+    connectedCallback()
+    {
+        super.connectedCallback();
+        useGlobalStyles(this.shadowRoot);
+    }
 }
 
 let globalSheets = null;
 
-export function getGlobalStyleSheets() {
+function getGlobalStyleSheets() {
   if (globalSheets === null) {
     globalSheets = Array.from(document.styleSheets)
         .map(x => {
@@ -36,7 +38,7 @@ export function getGlobalStyleSheets() {
   return globalSheets;
 }
 
-export function useGlobalStyles(shadowRoot) {
+function useGlobalStyles(shadowRoot) {
   shadowRoot.adoptedStyleSheets.push(
       ...getGlobalStyleSheets()
   );

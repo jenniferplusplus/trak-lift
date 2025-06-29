@@ -1,15 +1,15 @@
 import {TrakElement} from "./trak-element.js";
-import {html} from "lit";
+import {html, nothing} from "lit";
 import { repeat } from 'lit/directives/repeat.js';
-import {Task} from '@lit/task';
 import Exercise, {Paged} from "../data/exercise.js";
 
 export class ManageExercises extends TrakElement {
     static get properties() {
         return {
-            // data: {type: Paged },
+            data: { },
             page: { },
-            count: { type: Number }
+            count: { type: Number },
+            pageNumber: {type: Number },
         }
     }
 
@@ -18,23 +18,27 @@ export class ManageExercises extends TrakElement {
         this.data = new Paged();
         this.page = [];
         this.count = 0;
-        console.log('constructor');
+        this.pageNumber = 0;
         Exercise.all().then(v => {
             this.data = v;
             this.page = this.data.next();
-            console.log('page', this.page?.length)
             this.all = v;
-            console.log('all', this.data.pages());
             this.render();
 
         })
             .catch(console.error);
     }
 
-    _onClick() {
-        this.count++;
-        console.log('_onClick', this.count);
-    };
+    _onNext() {
+        if (this.pageNumber >= this.data.pages()) return;
+        this.pageNumber++;
+        this.page = this.data.next(this.pageNumber);
+    }
+    _onBack() {
+        if (this.pageNumber <= 0) return;
+        this.pageNumber--;
+        this.page = this.data.next(this.pageNumber);
+    }
 
     /**
      *
@@ -55,14 +59,17 @@ export class ManageExercises extends TrakElement {
             this.data = results;
             this.page = results.next();
         }
-        console.log('search page', this.page?.length)
+        this.pageNumber = 0;
     }
-    // _search = debounce(this._onSearch, 50);
 
     render() {
-        this.init();
         return html`
-            <p>Page: ${this.data.page()} of ${this.data.pages()}</p>
+            <div>
+                <p>Page: ${this.pageNumber + 1} of ${this.data.pages()}</p>
+                <button @click="${this._onBack}" disabled="${this.pageNumber > 0 ? nothing : ""}">Back</button>
+                <button @click="${this._onNext}" disabled="${this.pageNumber + 1 < this.data.pages() ? nothing : ""}">Next</button>
+            </div>
+            <a href="/exercise" data-navigo>new exercise</a>
             <div>
                 <label>
                     Search
@@ -72,9 +79,6 @@ export class ManageExercises extends TrakElement {
             <dl>
                 ${repeat(this.page, (each) => each.name, exerciseTemplate)}
             </dl>
-
-            <p>Count: ${this.count}</p>
-            <button @click=${this._onClick} part="button">click!</button>
         `;
 
         function exerciseTemplate(each, i) {
@@ -94,7 +98,7 @@ export class ManageExercises extends TrakElement {
                 }
             }
             return html`<div>
-                <dt>${each.name}</dt>
+                <dt><a href="/exercise/${each.name}" data-navigo>${each.name}</a></dt>
                 <dd><div>${kind()}</div></dd>
                 ${each.guide ? html`<dd><a href="${each.guide}">guide</a></dd>` : ''}
                 </div>`;

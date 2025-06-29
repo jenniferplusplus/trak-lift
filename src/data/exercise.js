@@ -13,7 +13,7 @@ class Exercise {
         return Db()
             .then(db => db.count(Store))
             .then(count => {
-                if (count === 0) this.reload().catch(console.error);
+                if (count === 0) return this.reload().catch(console.error);
             });
     }
 

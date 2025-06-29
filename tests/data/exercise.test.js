@@ -31,6 +31,11 @@ suite('Exercise', async () => {
        assert.ok(result.kind === 'weight', JSON.stringify(result));
     });
 
+    test('should not get an unknown exercise', async () => {
+        const result = await exercise.get('does not exist');
+        assert.ok(result === undefined);
+    });
+
     test('should iterate all exercises', async () => {
         let all = await exercise.all();
 

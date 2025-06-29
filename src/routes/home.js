@@ -10,11 +10,10 @@ export default function home(match) {
         <a href="/about" data-navigo>About</a>
         <h2>todo</h2>
         <ol>
+            <li><a href="/exercises" data-navigo>manage your exercises</a></li>
             <li>manage your routines</li>
             <li>start a session</li>
             <li>session history</li>
-            <li><a href="/exercises" data-navigo>manage your exercises</a></li>
         </ol>
-        <my-element>hey</my-element>
     `)
 }
