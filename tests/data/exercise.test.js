@@ -69,4 +69,4 @@ await suite('Exercise', async () => {
     test('should remove an exercise', async () => {
         await assert.doesNotThrow(async () => await exercise.remove('Copenhagen Plank'));
     });
-})
+});

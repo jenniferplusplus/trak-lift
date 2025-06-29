@@ -42,6 +42,7 @@ export class Routine {
     name;
     /** @var {[Exercise]} exercises */
     exercises = [];
+    tokens;
 }
 
 export class Session {
