@@ -11,9 +11,9 @@ export default function home(match) {
         <h2>todo</h2>
         <ol>
             <li><a href="/exercises" data-navigo>manage your exercises</a></li>
-            <li>manage your routines</li>
+            <li><a href="/routines" data-navigo>manage your routines</a></li>
             <li>start a session</li>
             <li>session history</li>
         </ol>
-    `)
+    `);
 }
