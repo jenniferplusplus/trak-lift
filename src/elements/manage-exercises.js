@@ -1,7 +1,8 @@
 import {TrakElement} from "./trak-element.js";
 import {html, nothing} from "lit";
 import { repeat } from 'lit/directives/repeat.js';
-import Exercise, {Paged} from "../data/exercise.js";
+import Exercise from "../data/exercise.js";
+import {Paged} from "../data/types.js";
 
 export class ManageExercises extends TrakElement {
     static get properties() {
