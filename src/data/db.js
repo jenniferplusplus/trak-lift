@@ -45,7 +45,8 @@ export async function* textSearch(index, query) {
 
     while(terms.length > 0) {
         const term = terms.shift();
-        cursor = await cursor.continue(term);
+        if (cursor.key !== term)
+            cursor = await cursor.continue(term);
         while (cursor) {
             if (cursor.key === term) {
                 yield cursor.value;
@@ -62,6 +63,9 @@ function upgrade (db, oldVersion, newVersion, transaction, event) {
     const exercises = db.createObjectStore('exercises', {keyPath: 'name'});
     exercises.createIndex('kind', 'kind');
     exercises.createIndex('tokens', 'tokens', { multiEntry: true });
+
+    const routines = db.createObjectStore('routines', {keyPath: 'name'});
+    routines.createIndex('tokens', 'tokens', { multiEntry: true });
 }
 
 function blocked(currentVersion, blockedVersion, event) {

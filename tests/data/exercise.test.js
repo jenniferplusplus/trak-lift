@@ -7,7 +7,7 @@ import {Db, tokenize} from "../../src/data/db.js";
 import exercise from '../../src/data/exercise.js';
 import {Exercise} from "../../src/models.js";
 
-suite('Exercise', async () => {
+await suite('Exercise', async () => {
     before(async () => {
         const db = await Db();
         const tx = db.transaction('exercises', 'readwrite');
