@@ -46,6 +46,8 @@ export class Routine {
 }
 
 export class Session {
+    /** @var {Number} start */
+    id;
     /** @var {Date} start */
     start;
     /** @var {Date} stop */

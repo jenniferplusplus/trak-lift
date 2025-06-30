@@ -6,7 +6,7 @@ import { length, substr } from 'stringz';
  * @constructor
  */
 export async function Db() {
-    return openDB("App", 1, {upgrade, blocked, blocking, terminated});
+    return openDB("App", 2, {upgrade, blocked, blocking, terminated});
 }
 
 /**
@@ -32,8 +32,29 @@ function comparer (a,b) {
     return a < b ? -1 : a > b ? 1 : 0;
 }
 
+export async function* keySearch(index, key) {
+    let cursor = await index.openCursor(key);
+
+    while (cursor) {
+        if (cursor.key === key) {
+            yield cursor.value;
+            cursor = cursor.continue();
+        }
+    }
+}
+
+export async function* dateSearch(index, date, end) {
+    let cursor = await index.openCursor(date);
+
+    while (cursor) {
+        if (cursor.key <= end) {
+            yield cursor.value;
+            cursor = cursor.continue();
+        }
+    }
+}
+
 /**
- *
  * @param {IDBIndex} index
  * @param {string} query
  * @returns {AsyncGenerator<*, void, *>}
@@ -60,12 +81,18 @@ export async function* textSearch(index, query) {
 }
 
 function upgrade (db, oldVersion, newVersion, transaction, event) {
-    const exercises = db.createObjectStore('exercises', {keyPath: 'name'});
-    exercises.createIndex('kind', 'kind');
-    exercises.createIndex('tokens', 'tokens', { multiEntry: true });
+    if (oldVersion < 1) {
+        const exercises = db.createObjectStore('exercises', {keyPath: 'name'});
+        exercises.createIndex('kind', 'kind');
+        exercises.createIndex('tokens', 'tokens', {multiEntry: true});
 
-    const routines = db.createObjectStore('routines', {keyPath: 'name'});
-    routines.createIndex('tokens', 'tokens', { multiEntry: true });
+        const routines = db.createObjectStore('routines', {keyPath: 'name'});
+        routines.createIndex('tokens', 'tokens', {multiEntry: true});
+    }
+
+    const sessions = db.createObjectStore('sessions', {keyPath: 'id', autoIncrement: true});
+    sessions.createIndex('routine', 'routine');
+    sessions.createIndex('start', 'start');
 }
 
 function blocked(currentVersion, blockedVersion, event) {
