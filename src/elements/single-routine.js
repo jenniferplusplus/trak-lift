@@ -139,15 +139,15 @@ export class SingleRoutine extends TrakElement {
                 ${repeat(this.data.exercises, (ex, i) => exerciseTemplate(this, ex, i))}
             </dl>
             <div>
+                <button @click="${this._onSave}">Save</button>
+                ${this.saved ? html` ✅` : ''}
+                <p class="error-message">${this.error}</p>
+            </div>
+            <div>
                 <label>Add Exercise
                     <input @input="${this._onChangeSearch}" type="search"/>
                 </label>
                 <ul class="search-results">${repeat(this.searchResults, (ex) => searchResultTemplate(this, ex))}</ul>
-            </div>
-            <div>
-                <button @click="${this._onSave}">Save</button>
-                ${this.saved ? html` ✅` : ''}
-                <p class="error-message">${this.error}</p>
             </div>`;
     }
 
@@ -188,7 +188,7 @@ function exerciseDetails(thisArg, ex, i) {
     switch (ex.kind) {
         default:
         case 'exercise':
-            return html``;
+            return html`<p>Generic exercise</p>`;
         case 'weight':
             return exWeightControls(thisArg, ex, i);
         case 'effort':

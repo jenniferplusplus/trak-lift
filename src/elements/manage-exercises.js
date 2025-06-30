@@ -70,11 +70,11 @@ export class ManageExercises extends TrakElement {
                 <button @click="${this._onBack}" disabled="${this.pageNumber > 0 ? nothing : ""}">Back</button>
                 <button @click="${this._onNext}" disabled="${this.pageNumber + 1 < this.data.pages() ? nothing : ""}">Next</button>
             </div>
-            <a href="/exercise" data-navigo>new exercise</a>
+            <p><a href="/exercise" data-navigo>new exercise</a></p>
             <div>
                 <label>
                     Search
-                    <input type="text" @input="${this._onSearch}">
+                    <input type="search" @input="${this._onSearch}">
                 </label>
             </div>
             <dl>

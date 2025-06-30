@@ -77,11 +77,11 @@ export class ManageRoutines extends TrakElement {
                     Next
                 </button>
             </div>
-            <a href="/routine" data-navigo>new routine</a>
+            <p><a href="/routine" data-navigo>new routine</a></p>
             <div>
                 <label>
                     Search
-                    <input type="text" @input="${this._onSearch}">
+                    <input type="search" @input="${this._onSearch}">
                 </label>
             </div>
             <dl>
@@ -92,7 +92,10 @@ export class ManageRoutines extends TrakElement {
         function routineTemplate(each) {
             return html`
                 <div>
-                    <dt><a href="/routine/${each.name}" data-navigo>${each.name}</a></dt>
+                    <dt class="end-controls">
+                        <a href="/routine/${each.name}" data-navigo>${each.name}</a>
+                        <span class="controls"><button>Start</button></span>
+                    </dt>
                     ${repeat(each.exercises, (ex) => html`
                         <dd>${ex.name}</dd>`)}
                 </div>
