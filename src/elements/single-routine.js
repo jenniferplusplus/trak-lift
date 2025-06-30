@@ -53,6 +53,24 @@ export class SingleRoutine extends TrakElement {
     }
 
     /**
+     * @param {ExerciseEffort} ex
+     * @param evt
+     * @private
+     */
+    _onChangeEffort(ex, evt) {
+        ex.effort = parseFloat(evt.target.value);
+    }
+
+    /**
+     * @param {ExerciseDistance} ex
+     * @param evt
+     * @private
+     */
+    _onChangeDistance(ex, evt) {
+        ex.distance = parseFloat(evt.target.value);
+    }
+
+    /**
      * @param {ExerciseWeight} ex
      * @param evt
      * @private
@@ -168,15 +186,32 @@ function exerciseTemplate(thisArg, ex, i) {
  */
 function exerciseDetails(thisArg, ex, i) {
     switch (ex.kind) {
+        default:
         case 'exercise':
-            return html`exercise`;
+            return html``;
         case 'weight':
             return exWeightControls(thisArg, ex, i);
         case 'effort':
-            return html`effort`;
+            return exEffortControls(thisArg, ex, i);
         case 'distance':
-            return html`distance`;
+            return exDistanceControls(thisArg, ex, i);
     }
+}
+
+function exEffortControls(thisArg, ex, i) {
+    return html`<span>
+        <label class="fit-size" for="in-eff-${i}">Effort</label>
+        <input id="in-eff-${i}" class="fit-size" size="4" value="${ex.effort}"
+               @change="${(evt) => thisArg._onChangeEffort(ex, evt)}"/>
+    </span>`
+}
+
+function exDistanceControls(thisArg, ex, i) {
+    return html`<span>
+        <label class="fit-size" for="in-dist-${i}">Distance</label>
+        <input id="in-dist-${i}" class="fit-size" size="4" value="${ex.distance}"
+               @change="${(evt) => thisArg._onChangeDistance(ex, evt)}"/>
+    </span>`
 }
 
 function exWeightControls(thisArg, ex, i) {
@@ -198,10 +233,8 @@ function exWeightControls(thisArg, ex, i) {
 }
 
 /**
- *
  * @param {SingleRoutine} thisArg
  * @param ex
- * @returns {TemplateResult<1>}
  */
 function searchResultTemplate(thisArg, ex) {
     return html`
