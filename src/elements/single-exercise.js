@@ -16,7 +16,7 @@ export class SingleExercise extends TrakElement {
     constructor() {
         super();
         this.data = undefined;
-        this.isNew = false;
+        this.status = false;
         this.saved = false;
         this.error = '';
     }
@@ -89,7 +89,7 @@ export class SingleExercise extends TrakElement {
         const details = this.data !== undefined
             ? html`
                     <dl>
-                        ${this.isNew
+                        ${this.status
                                 ? html`
                                     <dt>${this.renderNew()}</dt>`
                                 : html`

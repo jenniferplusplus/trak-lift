@@ -35,3 +35,36 @@ body {
 dt {
   font-size: 1.5rem;
 }
+
+ul li {
+  list-style: none;
+}
+
+input.fit-size {
+  width: initial;
+}
+
+label.fit-size {
+  width: fit-content;
+}
+
+.inline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.end-controls {
+  display: flex;
+  align-items: center;
+
+  .controls {
+    flex-grow: 1;
+    text-align: end;
+  }
+}
+
+.control-row {
+  border-bottom: solid 1px;
+  margin-bottom: 2em;
+}
