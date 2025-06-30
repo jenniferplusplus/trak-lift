@@ -14,7 +14,7 @@ await suite('Routine', async () => {
 
         const routine = Object.assign(new Routine(), {
             name: 'test routine',
-            searchResults: [
+            exercises: [
                 Object.assign(new ExerciseWeight(), {
                     name: 'Big Lift'
                 })
@@ -32,7 +32,7 @@ await suite('Routine', async () => {
 
     test('should get a routine by name', async () => {
        const result = await routine.get('test routine');
-       assert.ok(result.searchResults.length === 1, JSON.stringify(result));
+       assert.ok(result.exercises.length === 1, JSON.stringify(result));
     });
 
     test('should not get an unknown routine', async () => {
@@ -49,7 +49,7 @@ await suite('Routine', async () => {
     test('should add a new routine', async () => {
         const expected = Object.assign(new Routine(), {
             name: 'new routine',
-            searchResults: [
+            exercises: [
                 Object.assign(new ExerciseEffort(), {
                     name: 'Try Hard'
                 }),
@@ -62,17 +62,17 @@ await suite('Routine', async () => {
 
         const actual = await routine.get('new routine');
         assert.ok(actual.name === 'new routine', JSON.stringify(actual));
-        assert.ok(actual.searchResults.length === 2, JSON.stringify(actual));
+        assert.ok(actual.exercises.length === 2, JSON.stringify(actual));
     });
 
     test('should update a routine', async () => {
         const expected = await routine.get('test routine');
-        expected.searchResults.push(Object.assign(new ExerciseWeight(), {name: 'Lift And Hold'}));
+        expected.exercises.push(Object.assign(new ExerciseWeight(), {name: 'Lift And Hold'}));
         await routine.upsert(expected);
 
         const actual = await routine.get('test routine');
         assert.ok(actual.name === 'test routine', JSON.stringify(actual));
-        assert.ok(actual.searchResults.length === 2, JSON.stringify(actual));
+        assert.ok(actual.exercises.length === 2, JSON.stringify(actual));
     });
 
     test('should search for routines', async () => {
