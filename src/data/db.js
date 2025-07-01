@@ -38,18 +38,18 @@ export async function* keySearch(index, key) {
     while (cursor) {
         if (cursor.key === key) {
             yield cursor.value;
-            cursor = cursor.continue();
+            cursor = await cursor.continue();
         }
     }
 }
 
 export async function* dateSearch(index, date, end) {
-    let cursor = await index.openCursor(date);
+    let cursor = await index.openCursor(IDBKeyRange.bound(date, end));
 
     while (cursor) {
         if (cursor.key <= end) {
             yield cursor.value;
-            cursor = cursor.continue();
+            cursor = await cursor.continue();
         }
     }
 }

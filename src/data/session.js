@@ -1,9 +1,10 @@
 import {Db, tokenize, keySearch, dateSearch} from "./db.js";
 import {Paged, Ranked} from "./types.js";
+import {Session as SessionModel} from "../models.js";
 
 const Store = 'sessions';
 
-class Routine {
+class Session {
     constructor() {
     }
 
@@ -11,7 +12,7 @@ class Routine {
      *
      * @param {Number} id
      * @param {IDBTransaction?} tx
-     * @returns {Promise<RoutineModel>}
+     * @returns {Promise<SessionModel>}
      */
     async get(id, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
@@ -26,7 +27,7 @@ class Routine {
     async all(key = null) {
         const db = await Db();
         const cursor = await db.transaction(Store).store.openCursor();
-        return Paged.from(cursor, 20);
+        return Paged.fromCursor(cursor, 20);
     }
 
     /**
@@ -39,31 +40,30 @@ class Routine {
         const tx = db.transaction(Store);
         const cursor = tx.objectStore(Store).index('routine');
 
-        return Paged.from(keySearch(cursor, name), 20);
+        return Paged.fromEnumerable(keySearch(cursor, name), 20);
     }
 
     /**
      * @returns {Promise<Paged>}
-     * @param {Date} date
-     * @param {Date} dateEnd
+     * @param {Number} date
+     * @param {Number} dateEnd
      */
     async searchByDate(date, dateEnd) {
         const db = await Db();
         const tx = db.transaction(Store);
         const cursor = tx.objectStore(Store).index('start');
 
-        return Paged.from(dateSearch(cursor, date, dateEnd), 20);
+        return Paged.fromEnumerable(dateSearch(cursor, date, dateEnd), 20);
     }
 
     /**
      *
-     * @param {RoutineModel} model
+     * @param {SessionModel} model
      * @param {IDBTransaction?} tx
      * @returns {Promise<*>}
      */
     async upsert(model, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
-        model.tokens = tokenize(model.name);
 
         return await tx.store.put(model);
     }
@@ -81,5 +81,5 @@ class Routine {
     }
 }
 
-const singleton = new Routine();
+const singleton = new Session();
 export default singleton;

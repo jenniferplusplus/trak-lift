@@ -3,10 +3,18 @@ export class Paged {
     _pages = [[]];
     _pageSize;
 
-    static async from(cursor, pageSize) {
+    static async fromCursor(cursor, pageSize) {
         const pages = new Paged(pageSize);
         for await (const each of cursor) {
             pages.add(each.value);
+        }
+        return pages;
+    }
+
+    static async fromEnumerable(enumerable, pageSize) {
+        const pages = new Paged(pageSize);
+        for await (const each of enumerable) {
+            pages.add(each);
         }
         return pages;
     }

@@ -50,7 +50,7 @@ class Exercise {
     async all(key = null) {
         const db = await Db();
         const cursor = await db.transaction(Store).store.openCursor();
-        return Paged.from(cursor, 20);
+        return Paged.fromCursor(cursor, 20);
     }
 
     /**
