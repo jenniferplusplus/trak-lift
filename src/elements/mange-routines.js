@@ -3,6 +3,7 @@ import {html, nothing} from "lit";
 import {repeat} from 'lit/directives/repeat.js';
 import Routines from '../data/routine.js';
 import {Paged} from "../data/types.js";
+import Routes from '../routes.js'
 
 export class ManageRoutines extends TrakElement {
     static get properties() {
@@ -68,6 +69,10 @@ export class ManageRoutines extends TrakElement {
         this.pageNumber = 0;
     }
 
+    _onStart(id) {
+        Routes.navigate(`/session/start/${id}`);
+    }
+
     render() {
         return html`
             <div>
@@ -85,16 +90,16 @@ export class ManageRoutines extends TrakElement {
                 </label>
             </div>
             <dl>
-                ${repeat(this.page, routineTemplate)}
+                ${repeat(this.page, (each) => routineTemplate(this, each))}
             </dl>
         `;
 
-        function routineTemplate(each) {
+        function routineTemplate(thisArg, each) {
             return html`
                 <div>
                     <dt class="end-controls">
                         <a href="/routine/${each.name}" data-navigo>${each.name}</a>
-                        <span class="controls"><button>Start</button></span>
+                        <span class="controls"><button @click="${() => thisArg._onStart(each.name)}">Start</button></span>
                     </dt>
                     ${repeat(each.exercises, (ex) => html`
                         <dd>${ex.name}</dd>`)}
