@@ -1,11 +1,12 @@
 import {Render} from "./index.js";
+import {html} from "lit-html";
 
 /**
  * Render the home view
  * @param {Match} match
  */
 export default function home(match) {
-    Render(`
+    Render(html`
         <h1>Welcome home!</h1>
         <a href="/about" data-navigo>About</a>
         <h2>todo</h2>

@@ -1,7 +1,8 @@
 import {Render} from "./index.js";
+import {html} from "lit-html";
 
 export default function manage(match) {
-    Render(`
+    Render(html`
     <manage-exercises></manage-exercises>
     `);
 }

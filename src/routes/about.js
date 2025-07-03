@@ -6,7 +6,7 @@ import {html} from "lit";
  * @param {Match} match
  */
 export default function about(match) {
-    Render(`
+    Render(html`
         <h1>Welcome about!</h1>
     `);
 }

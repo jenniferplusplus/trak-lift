@@ -5,6 +5,7 @@ import Exercises from './routes/manage-exercises.js';
 import SingleExercise from './routes/single-exercise.js';
 import Routines from './routes/manage-routines.js';
 import SingleRoutine from './routes/single-routine.js';
+import SingleSession from './routes/single-session.js';
 
 function Routes() {
     const router = new Navigo('/');
@@ -13,8 +14,8 @@ function Routes() {
         .on('/routines', Routines)
         .on('/routine', SingleRoutine)
         .on('/routine/:name', SingleRoutine)
-        .on('/session/start/:id', console.log)
-        .on('/session/:id', console.log)
+        .on('/session/start/:routine', (match) => SingleSession(match, true))
+        .on('/session/:id', (match) => SingleSession(match, false))
         .on('/sessions', console.log)
         .on('/exercises', Exercises)
         .on('/exercise/:name', SingleExercise)
