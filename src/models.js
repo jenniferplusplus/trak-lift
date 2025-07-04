@@ -11,6 +11,24 @@ export class Exercise {
     /** @var {URL} [guide] */
     guide;
     tokens;
+
+    static Start(ex) {
+        ex.start = Date.now();
+        ex.stop = undefined;
+    }
+
+    static Stop(ex) {
+        ex.stop = Date.now();
+        ex.start ??= Date.now();
+    }
+
+    static Started(ex) {
+        return !!ex.start && (ex.start <= Date.now());
+    }
+
+    static Stopped(ex) {
+        return !!ex.stop || (ex.stop <= Date.now()) ;
+    }
 }
 
 export class ExerciseWeight extends Exercise {
