@@ -8,19 +8,40 @@
     <link rel="stylesheet" href="/css/pico.jade.min.css"/>
     <link rel="stylesheet" href="/css/app.css"/>
     <script type="module">
-        import Routes from "/src/routes.js";
-        window.addEventListener("load", () => Routes.resolve());
-    </script>
-    <script type="module">
+        import {ContextRoot} from '@lit/context';
+
         import {ManageExercises} from "/src/elements/manage-exercises.js";
         import {SingleExercise} from "/src/elements/single-exercise.js";
         import {ManageRoutines} from "/src/elements/mange-routines.js";
         import {SingleRoutine} from "./src/elements/single-routine.js";
+        import {RoutineListWidget} from "./src/elements/routine-list-widget.js";
+
         import {SingleSession} from "./src/views/single-session.js";
+        import {Home} from "./src/views/home.js";
+
+        import Routes from "/src/routes.js";
+
+        window.addEventListener("load", () => Routes.resolve());
+
+        const root = new ContextRoot();
+        root.attach(document.getElementById('app'));
     </script>
 </head>
-<body>
-    <main id="app" class="container-fluid">
+<body class="container-fluid">
+    <header>
+        <nav>
+            <ul>
+                <li><h1><a href="/" class="contrast" data-navigo>Trak Lift</a></h1></li>
+            </ul>
+            <ul>
+                <li><a href="/about" data-navigo>Help</a></li>
+                <li><a href="/exercises" data-navigo>Exercises</a></li>
+                <li><a href="/routines" data-navigo>Routines</a></li>
+                <li><a href="/sessions" data-navigo>Sessions</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="app">
     </main>
 </body>
 </html>

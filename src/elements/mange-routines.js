@@ -6,6 +6,7 @@ import {Paged} from "../data/types.js";
 import Routes from '../routes.js'
 
 export class ManageRoutines extends TrakElement {
+
     static get properties() {
         return {
             data: {type: Object, attribute: false},
@@ -90,22 +91,9 @@ export class ManageRoutines extends TrakElement {
                 </label>
             </div>
             <dl>
-                ${repeat(this.page, (each) => routineTemplate(this, each))}
+                ${repeat(this.page, (each) => html`<routine-list-widget name="${each.name}"></routine-list-widget>`)}
             </dl>
         `;
-
-        function routineTemplate(thisArg, each) {
-            return html`
-                <div>
-                    <dt class="end-controls">
-                        <a href="/routine/${each.name}" data-navigo>${each.name}</a>
-                        <span class="controls"><button @click="${() => thisArg._onStart(each.name)}">Start</button></span>
-                    </dt>
-                    ${repeat(each.exercises, (ex) => html`
-                        <dd>${ex.name}</dd>`)}
-                </div>
-            `;
-        }
     }
 }
 

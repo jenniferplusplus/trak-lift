@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test --experimental-test-coverage",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -13,6 +13,7 @@
     "@lit/task": "^1.0.2",
     "idb": "^8.0.3",
     "lit": "^3.3.0",
+    "lit-html": "^3.3.0",
     "navigo": "^8.11.1",
     "stringz": "^2.1.0"
   },
