@@ -1,80 +1,94 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
 }
 
 .emoji {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 dt {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 ul li {
-  list-style: none;
+    list-style: none;
 }
 
 input.fit-size {
-  width: initial;
+    width: initial;
 }
 
 label.fit-size {
-  width: fit-content;
+    width: fit-content;
 }
 
 .inline-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
 }
 
 .end-controls {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  .controls {
+    .controls {
+        flex-grow: 1;
+        text-align: end;
+        width: fit-content;
+        margin: 0;
+    }
+
+    .controls[role="group"] {
+        flex-grow: 0;
+    }
+}
+
+.space {
     flex-grow: 1;
-    text-align: end;
-  }
 }
 
 .control-row {
-  border-bottom: solid 1px;
-  margin-bottom: 2em;
+    border-bottom: solid 1px;
+    margin-bottom: 2em;
 }
 
 .data-display {
-  font-size: 1.25em;
+    font-size: 1.25em;
 
-  .data {
-    display: inline-block;
-    font-size: 1.5em;
-    min-width: 2em;
-  }
+    .data {
+        display: inline-block;
+        font-size: 1.5em;
+    }
+}
+
+.full-width {
+    width: 100%;
 }

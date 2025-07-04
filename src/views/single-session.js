@@ -2,6 +2,7 @@ import {TrakElement} from "../elements/trak-element.js";
 import {html, nothing} from "lit";
 import RoutineRepo from '../data/routine.js';
 import SessionRepo from '../data/session.js';
+import ExerciseRepo from '../data/exercise.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine, Session} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
 import {defaultValue, duration} from '../text.js';
@@ -14,6 +15,7 @@ export class SingleSession extends TrakElement {
             id: {type: Number},
             saved: {type: Boolean, attribute: false},
             editMode: {type: Boolean, attribute: false},
+            modified: {type: Boolean, attribute: false},
             error: {type: String, attribute: false},
             data: {type: Object, attribute: false},
             searchResults: {type: Array, attribute: false}
@@ -28,6 +30,7 @@ export class SingleSession extends TrakElement {
         this.id = undefined;
         this.start = false;
         this.saved = false;
+        this.modified = false;
         this.error = '';
         this.searchResults = [];
     }
@@ -55,18 +58,32 @@ export class SingleSession extends TrakElement {
         }
     }
 
+    async saveSession() {
+        try {
+            const id = await SessionRepo.upsert(this.data);
+            this.data.id = id;
+            this.found = true;
+        } catch (e) {
+            console.error(e);
+            this.error = e.message ?? e
+        }
+    }
+
     _onEdit() {
         this.editMode = !this.editMode;
     }
 
     _onStart(ex) {
         Exercise.Start(ex);
+        this.data.start ??= ex.start;
         this.requestUpdate('data');
+        this.saveSession();
     }
 
     _onStop(ex) {
         Exercise.Stop(ex);
         this.requestUpdate('data');
+        this.saveSession();
     }
 
     async _onChangeSearch(evt) {
@@ -86,6 +103,8 @@ export class SingleSession extends TrakElement {
      */
     _onChangeEffort(ex, evt) {
         ex.effort = parseFloat(evt.target.value);
+        this.modified = true;
+        this.saveSession();
     }
 
     /**
@@ -95,6 +114,8 @@ export class SingleSession extends TrakElement {
      */
     _onChangeDistance(ex, evt) {
         ex.distance = parseFloat(evt.target.value);
+        this.modified = true;
+        this.saveSession();
     }
 
     /**
@@ -104,6 +125,8 @@ export class SingleSession extends TrakElement {
      */
     _onChangeWeight(ex, evt) {
         ex.weight = parseInt(evt.target.value);
+        this.modified = true;
+        this.saveSession();
     }
 
     /**
@@ -113,6 +136,8 @@ export class SingleSession extends TrakElement {
      */
     _onChangeReps(ex, evt) {
         ex.reps = parseInt(evt.target.value);
+        this.modified = true;
+        this.saveSession();
     }
 
     /**
@@ -122,34 +147,26 @@ export class SingleSession extends TrakElement {
      */
     _onChangeSets(ex, evt) {
         ex.sets = parseInt(evt.target.value);
-    }
-
-    /**
-     * @param {Exercise} ex
-     * @private
-     */
-    _onStartExercise(ex) {
-        ex.start = Date.now();
-    }
-
-    /**
-     * @param {Exercise} ex
-     * @private
-     */
-    _onStopExercise(ex) {
-        ex.stop = Date.now();
-        ex.start ??= Date.now();
+        this.modified = true;
+        this.saveSession();
     }
 
     async _onAdd(ex) {
+        console.log('onAdd');
         this.data.exercises.push({...ex});
         this.requestUpdate('data');
+        this.modified = true;
+        await this.saveSession();
     }
 
-    async _onSave() {
+
+    async _onUpdateRoutine() {
         try {
-            await RoutineRepo.upsert(this.data);
+            const routine = await RoutineRepo.get(this.data.routine);
+            routine.exercises = this.data.exercises;
+            await RoutineRepo.upsert(routine);
             this.saved = true;
+            this.modified = false;
         } catch (e) {
             console.error(e);
             this.error = e.message ?? e
@@ -158,6 +175,23 @@ export class SingleSession extends TrakElement {
 
     async _onRemove(ex) {
         this.data.exercises.splice(this.data.exercises.indexOf(ex), 1);
+        this.requestUpdate('data');
+        this.modified = true;
+    }
+
+    async _onFinish(evt) {
+        this.data.start ??= this.data.exercises.map(ex => ex.start).sort()[0] ?? Date.now();
+        // for (const ex of this.data.exercises) {
+        //     if (!Exercise.Stopped(ex)) Exercise.Stop(ex);
+        // }
+        this.data.stop = Date.now();
+        await SessionRepo.upsert(this.data);
+        this.requestUpdate('data');
+    }
+
+    async _onRestart(evt) {
+        this.data.stop = undefined;
+        await SessionRepo.upsert(this.data);
         this.requestUpdate('data');
     }
 
@@ -183,32 +217,37 @@ export class SingleSession extends TrakElement {
 
         return html`
             <div class="end-controls">
-            <h1>Session</h1>
+                <h1>Session${!!this.data.id ? html` <span>${this.data.id}</span>` : nothing}</h1>
                 <span class="controls">
-                <button class="inline-btn contrast" @click="${() => this._onEdit()}">✏️</button>
+                    <button @click="${this._onUpdateRoutine}" hidden="${!this.modified || nothing}">Update Routine</button>
+                    ${this.saved ? html` ✅` : ''}
+                <button class="inline-btn contrast outline" @click="${() => this._onEdit()}" disabled="${Exercise.Stopped(this.data) || nothing}">✏️</button>
+                    <p class="error-message">${this.error}</p>
                 </span>
             </div>
             <p>${this.renderName()}</p>
             <dl>
                 ${repeat(this.data.exercises, (ex, i) => exerciseTemplate(this, ex, i))}
             </dl>
-            <div>
-                <button @click="${this._onSave}">Save</button>
-                ${this.saved ? html` ✅` : ''}
-                <p class="error-message">${this.error}</p>
+            <div role="group">
+                <button class="full-width" @click="${this._onFinish}" disabled="${Exercise.Stopped(this.data) || nothing}">Finish</button>
+                <button class="full-width secondary" @click="${this._onRestart}" disabled="${!Exercise.Stopped(this.data) || nothing}">Restart</button>
             </div>
-            <div>
-                <label>Add Exercise
-                    <input @input="${this._onChangeSearch}" type="search"/>
-                </label>
-                <ul class="search-results">${repeat(this.searchResults, (ex) => searchResultTemplate(this, ex))}</ul>
-            </div>`;
+            ${this.editMode ? html`
+                <div>
+                    <label>Add Exercise
+                        <input @input="${this._onChangeSearch}" type="search"/>
+                    </label>
+                    <ul class="search-results">${repeat(this.searchResults, (ex) => searchResultTemplate(this, ex))}
+                    </ul>
+                </div>` : ''}
+        `;
     }
 
     renderName() {
         if (this.status === 'found')
-            return html`Session ${this.data.name}`;
-        return html`New session from ${this.data.routine}`;
+            return html`Session ${this.data.id} from <a href="/routine/${this.data.routine}" data-navigo>${this.data.routine}</a>`;
+        return html`New session from <a href="/routine/${this.data.routine}" data-navigo>${this.data.routine}</a>`;
     }
 }
 
@@ -223,13 +262,22 @@ function exerciseTemplate(thisArg, ex, i) {
         <div class="control-row">
             <dt class="end-controls">
                 <span class="title">${ex.name}${Exercise.Stopped(ex) ? ' ✅' : Exercise.Started(ex) ? ' ⬅️' : ''}</span>
-                <span class="controls">
-                <button class="inline-btn secondary"
-                        disabled="${(Exercise.Started(ex) && !Exercise.Stopped(ex)) || nothing}"
-                        @click="${() => thisArg._onStart(ex)}">Start</button>
-                <button class="inline-btn secondary"
-                        disabled="${Exercise.Stopped(ex) || !Exercise.Started(ex) || nothing}"
-                        @click="${() => thisArg._onStop(ex)}">Stop</button>
+                <span class="controls" role="group">
+                    ${!thisArg.editMode
+                            ? html`
+                                <button class="inline-btn secondary"
+                                        disabled="${Exercise.Stopped(thisArg.data) || (Exercise.Started(ex) && !Exercise.Stopped(ex)) || nothing}"
+                                        @click="${() => thisArg._onStart(ex)}">Start
+                                </button>
+                                <button class="inline-btn secondary"
+                                        disabled="${Exercise.Stopped(thisArg.data) || (Exercise.Stopped(ex) || !Exercise.Started(ex)) || nothing}"
+                                        @click="${() => thisArg._onStop(ex)}">Stop
+                                </button>`
+                            : html`
+                                <button class="inline-btn secondary"
+                                        disabled="${(Exercise.Started(ex) && !Exercise.Stopped(ex)) || nothing}"
+                                        @click="${() => thisArg._onRemove(ex)}">Remove
+                                </button>`}
             </span>
             </dt>
             <dd><span>${duration(ex.stop - ex.start)}</span></dd>
@@ -260,8 +308,8 @@ function exEffortControls(thisArg, ex, i) {
     return thisArg.editMode
         ? html`<span>
                 <label class="fit-size" for="in-eff-${i}">Effort</label>
-                <input id="in-eff-${i}" class="fit-size" size="4" value="${ex.effort}" 
-                       @change="${(evt) => thisArg._onChangeEffort(ex, evt)}" type="number"/>
+                <input id="in-eff-${i}" class="fit-size" size="4" value="${ex.effort}"
+                       @change="${(evt) => thisArg._onChangeEffort(ex, evt)}" type="number" inputmode="numeric"/>
             </span>`
         : html`<span class="data-display">
                 <span>Effort</span>
@@ -274,7 +322,7 @@ function exDistanceControls(thisArg, ex, i) {
         ? html`<span>
                 <label class="fit-size" for="in-dist-${i}">Distance</label>
                 <input id="in-dist-${i}" class="fit-size" size="4" value="${ex.distance}"
-                   @change="${(evt) => thisArg._onChangeDistance(ex, evt)}" type="number"/>
+                       @change="${(evt) => thisArg._onChangeDistance(ex, evt)}" type="number" inputmode="numeric"/>
             </span>`
         : html`<span class="data-display">
                 <span>Distance</span>
@@ -287,17 +335,17 @@ function exWeightControls(thisArg, ex, i) {
         ? html`<span>
                 <label class="fit-size" for="in-weight-${i}">Weight</label>
                 <input id="in-weight-${i}" class="fit-size" size="4" value="${ex.weight}"
-                       @change="${(evt) => thisArg._onChangeWeight(ex, evt)}" type="number"/>
+                       @change="${(evt) => thisArg._onChangeWeight(ex, evt)}" type="number" inputmode="numeric"/>
             </span>
             <span>
                 <label for="in-reps-${i}" class="fit-size">Reps</label>
                 <input id="in-reps-${i}" class="fit-size" size="4" value="${ex.reps}"
-                       @change="${(evt) => thisArg._onChangeReps(ex, evt)}" type="number"/>
+                       @change="${(evt) => thisArg._onChangeReps(ex, evt)}" type="number" inputmode="numeric"/>
             </span>
             <span>
                 <label for="in-sets-${i}" class="fit-size">Sets</label>
                 <input id="in-sets-${i}" class="fit-size" size="4" value="${ex.sets}"
-                       @change="${(evt) => thisArg._onChangeSets(ex, evt)}" type="number"/>
+                       @change="${(evt) => thisArg._onChangeSets(ex, evt)}" type="number" inputmode="numeric"/>
             </span>`
         : html`<span class="data-display">
                 <span>Weight</span>

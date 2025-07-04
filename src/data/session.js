@@ -1,6 +1,6 @@
-import {Db, tokenize, keySearch, dateSearch} from "./db.js";
-import {Paged, Ranked} from "./types.js";
-import {Session as SessionModel} from "../models.js";
+import {Session as SessionModel} from '../models.js';
+import {dateSearch, Db, keySearch} from "./db.js";
+import {Paged} from "./types.js";
 
 const Store = 'sessions';
 
@@ -28,6 +28,17 @@ class Session {
         const db = await Db();
         const cursor = await db.transaction(Store).store.openCursor();
         return Paged.fromCursor(cursor, 20);
+    }
+
+    /**
+     * @param tx {IDBTransaction}
+     * @returns {Promise<SessionModel || null>}
+     */
+    async last(tx = null) {
+        tx ??= (await Db()).transaction(Store);
+        let cursor = await tx.store.openCursor(null, 'prev');
+        // if (cursor) cursor = await cursor.next();
+        return cursor?.value;
     }
 
     /**
@@ -65,6 +76,10 @@ class Session {
     async upsert(model, tx = null) {
         tx ??= (await Db()).transaction(Store, 'readwrite');
 
+        if (model.id === undefined) {
+            const last = await this.last(tx);
+            model.id = last === undefined ? 0 : last.id + 1;
+        }
         return await tx.store.put(model);
     }
 
