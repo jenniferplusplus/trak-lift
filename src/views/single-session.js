@@ -181,9 +181,6 @@ export class SingleSession extends TrakElement {
 
     async _onFinish(evt) {
         this.data.start ??= this.data.exercises.map(ex => ex.start).sort()[0] ?? Date.now();
-        // for (const ex of this.data.exercises) {
-        //     if (!Exercise.Stopped(ex)) Exercise.Stop(ex);
-        // }
         this.data.stop = Date.now();
         await SessionRepo.upsert(this.data);
         this.requestUpdate('data');

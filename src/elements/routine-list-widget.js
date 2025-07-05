@@ -5,8 +5,6 @@ import Routes from "../routes.js";
 import RoutinesRepo from '../data/routine.js';
 
 export class RoutineListWidget extends TrakElement {
-
-
     static get properties() {
         return {
             name: {type: String},
@@ -35,12 +33,10 @@ export class RoutineListWidget extends TrakElement {
             })
             .catch(e => {
                 this.error = e
-            })
-            .finally(() => console.log('finally'));
+            });
     }
 
     render() {
-        console.log('rendering widget');
         if (this.error !== undefined)
             return html`<p class="error-message">couldn't load routines: ${this.error}</p>`;
         if (this.data === undefined)
