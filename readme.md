@@ -6,6 +6,8 @@ last scrap of data it can about you, and selling it to autocrats and billionaire
 Or they try to hard sell you on slop-filled personal training.
 Most of them do both.
 
+![preview.png](readme/preview.png)
+
 ## Features
 - [x] Simple exercise tracker
 - [x] Reusable routines
