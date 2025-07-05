@@ -20,7 +20,10 @@ class Exercise {
 
     async reload() {
         // try {
-            const json = await fetch(`${base}exercises.json`).then(res => res.json());
+            const res = await fetch(`${base}exercises.json`);//.then(res => res.json());
+            console.log('reload', 'fetch', res);
+            const json = res.json();
+            console.log('reload', 'json', json);
             const db = await Db();
             const tx = db.transaction(Store, 'readwrite');
             const adds = json.data.map(async (row) => {
