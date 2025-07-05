@@ -3,6 +3,7 @@ import {html} from "lit";
 import {repeat} from "lit/directives/repeat.js";
 import Routes from "../routes.js";
 import RoutinesRepo from '../data/routine.js';
+import {base} from '../../vite.config.js';
 
 export class RoutineListWidget extends TrakElement {
     static get properties() {
@@ -44,7 +45,7 @@ export class RoutineListWidget extends TrakElement {
         return html`
                 <div>
                     <dt class="end-controls">
-                        <a href="/routine/${this.data.name}" data-navigo>${this.data.name}</a>
+                        <a href="${base}/routine/${this.data.name}" data-navigo>${this.data.name}</a>
                         <span class="controls"><button @click="${() => this._onStart(this.data.name)}">Start</button></span>
                     </dt>
                     ${repeat(this.data.exercises, (ex) => html`

@@ -2,6 +2,7 @@ import {TrakElement} from "./trak-element.js";
 import {html, nothing} from "lit";
 import ExerciseRepo from '../data/exercise.js'
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight} from "../models.js";
+import {base} from '../../vite.config.js';
 
 export class SingleExercise extends TrakElement {
     static get properties() {
@@ -117,7 +118,7 @@ export class SingleExercise extends TrakElement {
                     <p class="error-message">${this.error}</p>
             `
             : html`<p>not found</p>
-                <p><a href="/exercise" data-navigo>add new exercise</a></p>`;
+                <p><a href="${base}exercise" data-navigo>add new exercise</a></p>`;
         return html`
             ${details}
         `;

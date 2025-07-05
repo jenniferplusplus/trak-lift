@@ -3,6 +3,7 @@ import {html, nothing} from "lit";
 import { repeat } from 'lit/directives/repeat.js';
 import Exercise from "../data/exercise.js";
 import {Paged} from "../data/types.js";
+import {base} from '../../vite.config.js';
 
 export class ManageExercises extends TrakElement {
     static get properties() {
@@ -70,7 +71,7 @@ export class ManageExercises extends TrakElement {
                 <button @click="${this._onBack}" disabled="${this.pageNumber > 0 ? nothing : ""}">Back</button>
                 <button @click="${this._onNext}" disabled="${this.pageNumber + 1 < this.data.pages() ? nothing : ""}">Next</button>
             </div>
-            <p><a href="/exercise" data-navigo>new exercise</a></p>
+            <p><a href="${base}exercise" data-navigo>new exercise</a></p>
             <div>
                 <label>
                     Search
@@ -99,7 +100,7 @@ export class ManageExercises extends TrakElement {
                 }
             }
             return html`<div>
-                <dt><a href="/exercise/${each.name}" data-navigo>${each.name}</a></dt>
+                <dt><a href="${base}/exercise/${each.name}" data-navigo>${each.name}</a></dt>
                 <dd><div>${kind()}</div></dd>
                 ${each.guide ? html`<dd><a href="${each.guide}">guide</a></dd>` : ''}
                 </div>`;

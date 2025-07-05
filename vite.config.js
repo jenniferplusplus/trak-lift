@@ -1,3 +1,5 @@
+export const base ='/trak-lift/';
+
 export default {
-    base: '/trak-lift/'
+    base: base
 }

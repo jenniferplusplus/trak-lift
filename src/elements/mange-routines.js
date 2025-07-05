@@ -4,6 +4,7 @@ import {repeat} from 'lit/directives/repeat.js';
 import Routines from '../data/routine.js';
 import {Paged} from "../data/types.js";
 import Routes from '../routes.js'
+import {base} from '../../vite.config.js';
 
 export class ManageRoutines extends TrakElement {
 
@@ -83,7 +84,7 @@ export class ManageRoutines extends TrakElement {
                     Next
                 </button>
             </div>
-            <p><a href="/routine" data-navigo>new routine</a></p>
+            <p><a href="${base}/routine" data-navigo>new routine</a></p>
             <div>
                 <label>
                     Search

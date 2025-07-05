@@ -1,5 +1,6 @@
 import {TrakElement} from "./trak-element.js";
 import {html} from "lit-html";
+import {base} from '../../vite.config.js';
 
 export class TrakHeader extends TrakElement {
     static get properties() {
@@ -53,13 +54,13 @@ export class TrakHeader extends TrakElement {
             <header>
                 <nav>
                     <ul>
-                        <li><h1><a href="/" class="contrast" data-navigo>Trak Lift</a></h1></li>
+                        <li><h1><a href="${base}" class="contrast" data-navigo>Trak Lift</a></h1></li>
                     </ul>
                     <ul>
-                        <li><a href="/about" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
-                        <li><a href="/exercises" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>
-                        <li><a href="/routines" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>
-                        <li><a href="/sessions" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>
+                        <li><a href="${base}about" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
+                        <li><a href="${base}exercises" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>
+                        <li><a href="${base}routines" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>
+                        <li><a href="${base}sessions" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>
                     </ul>
                 </nav>
             </header>`;
