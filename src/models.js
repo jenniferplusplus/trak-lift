@@ -27,7 +27,7 @@ export class Exercise {
     }
 
     static Stopped(ex) {
-        return !!ex.stop || (ex.stop <= Date.now()) ;
+        return !!ex.stop && ex.stop !== Number.MAX_SAFE_INTEGER || (ex.stop <= Date.now()) ;
     }
 }
 

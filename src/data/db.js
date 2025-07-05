@@ -6,7 +6,7 @@ import { length, substr } from 'stringz';
  * @constructor
  */
 export async function Db() {
-    return openDB("App", 2, {upgrade, blocked, blocking, terminated});
+    return openDB("App", 13, {upgrade, blocked, blocking, terminated});
 }
 
 /**
@@ -80,7 +80,7 @@ export async function* textSearch(index, query) {
     }
 }
 
-function upgrade (db, oldVersion, newVersion, transaction, event) {
+async function upgrade (db, oldVersion, newVersion, transaction, event) {
     if (oldVersion < 1) {
         const exercises = db.createObjectStore('exercises', {keyPath: 'name'});
         exercises.createIndex('kind', 'kind');
@@ -100,6 +100,24 @@ function upgrade (db, oldVersion, newVersion, transaction, event) {
         const tx = event.target.transaction;
         const sessions = tx.objectStore('sessions');
         sessions.createIndex('stop', 'stop');
+    }
+
+    if (oldVersion < 4) {
+        const tx = event.target.transaction;
+        const sessions = tx.objectStore('sessions');
+        const open = sessions.openCursor();
+
+        open.onsuccess = (event) => {
+            const cursor = event.target.result;
+            if (cursor) {
+                if (cursor.value.stop === undefined) {
+                    cursor.value.stop = Number.MAX_SAFE_INTEGER;
+                    cursor.update(cursor.value);
+                }
+                cursor.continue();
+            }
+        }
+        open.onerror = console.error;
     }
 }
 

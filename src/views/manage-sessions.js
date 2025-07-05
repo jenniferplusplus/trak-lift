@@ -31,9 +31,9 @@ export class ManageSessions extends TrakElement {
 
     render() {
         if (this.page === undefined) return;
-        return html`<ul>
+        return html`<dl>
             ${repeat(this.page, (each) => html`<session-list-widget .data="${each}"></session-list-widget>`) }
-        </ul>`
+        </dl>`
     }
 }
 window.customElements.define('manage-sessions', ManageSessions);

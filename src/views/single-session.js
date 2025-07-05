@@ -188,7 +188,7 @@ export class SingleSession extends TrakElement {
     }
 
     async _onRestart(evt) {
-        this.data.stop = undefined;
+        this.data.stop = Number.MAX_SAFE_INTEGER;
         await SessionRepo.upsert(this.data);
         this.requestUpdate('data');
     }
