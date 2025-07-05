@@ -9,7 +9,7 @@ import SingleSession from './routes/single-session.js';
 import Sessions from './routes/manage-sessions.js'
 
 function Routes() {
-    const router = new Navigo('/');
+    const router = new Navigo('/trak-lift');
 
     return router
         .on('/routines', Routines)
