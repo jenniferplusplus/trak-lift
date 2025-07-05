@@ -90,9 +90,17 @@ function upgrade (db, oldVersion, newVersion, transaction, event) {
         routines.createIndex('tokens', 'tokens', {multiEntry: true});
     }
 
-    const sessions = db.createObjectStore('sessions', {keyPath: 'id', autoIncrement: true});
-    sessions.createIndex('routine', 'routine');
-    sessions.createIndex('start', 'start');
+    if (oldVersion < 2) {
+        const sessions = db.createObjectStore('sessions', {keyPath: 'id', autoIncrement: true});
+        sessions.createIndex('routine', 'routine');
+        sessions.createIndex('start', 'start');
+    }
+
+    if (oldVersion < 3) {
+        const tx = event.target.transaction;
+        const sessions = tx.objectStore('sessions');
+        sessions.createIndex('stop', 'stop');
+    }
 }
 
 function blocked(currentVersion, blockedVersion, event) {

@@ -1,5 +1,5 @@
 import test, {suite, before} from 'node:test';
-import assert from 'node:assert/strict';
+import assert, {ok} from 'node:assert/strict';
 import 'fake-indexeddb/auto';
 
 import {Db} from "../../src/data/db.js";
@@ -118,6 +118,37 @@ await suite('Session', async () => {
     test('should remove a session', async () => {
         await assert.doesNotThrow(async () => await session.remove(0));
     });
+
+    test('should list last sessions', async () => {
+        await session.upsert(Object.assign(new Session(), {
+            exercises: [],
+            id: 4,
+            routine: 'Some Routine',
+            start: Number.MAX_SAFE_INTEGER - 60_000,
+            stop: Number.MAX_SAFE_INTEGER - 50_000,
+        }));
+        await session.upsert(Object.assign(new Session(), {
+            exercises: [],
+            id: 5,
+            routine: 'Some Routine',
+            start: Number.MAX_SAFE_INTEGER - 50_000,
+            stop: Number.MAX_SAFE_INTEGER - 40_000,
+        }));
+        await session.upsert(Object.assign(new Session(), {
+            exercises: [],
+            id: 6,
+            routine: 'Some Routine',
+            start: Number.MAX_SAFE_INTEGER - 30_000,
+        }));
+        await session.upsert(Object.assign(new Session(), {
+            exercises: [],
+            id: 6,
+            routine: 'Some Routine',
+            start: Number.MAX_SAFE_INTEGER - 20_000,
+        }));
+        const actual = await session.active(3);
+        ok(actual.length === 2, JSON.stringify(actual));
+    })
 })
 
 async function DoesNotThrowValue(fn) {

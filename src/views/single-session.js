@@ -60,6 +60,7 @@ export class SingleSession extends TrakElement {
 
     async saveSession() {
         try {
+            this.data.stop ??= Number.MAX_SAFE_INTEGER;
             const id = await SessionRepo.upsert(this.data);
             this.data.id = id;
             this.found = true;

@@ -64,16 +64,20 @@ export class Routine {
 }
 
 export class Session {
-    /** @var {Number} start */
+    /** @var {Number} id */
     id;
-    /** @var {Date} start */
+    /** @var {Number} start */
     start;
-    /** @var {Date} stop */
+    /** @var {Number} stop */
     stop;
     /** @var {[Exercise]} exercises */
     exercises;
     /** @var {string} routine */
     routine;
+
+    constructor() {
+        this.stop = Number.MAX_SAFE_INTEGER;
+    }
 }
 
 // wip

@@ -31,14 +31,41 @@ class Session {
     }
 
     /**
+     * @param limit {Number}
      * @param tx {IDBTransaction}
-     * @returns {Promise<SessionModel || null>}
+     * @returns {Promise<[SessionModel]>}
      */
-    async last(tx = null) {
+    async last(limit = null, tx = null) {
         tx ??= (await Db()).transaction(Store);
         let cursor = await tx.store.openCursor(null, 'prev');
-        // if (cursor) cursor = await cursor.next();
-        return cursor?.value;
+        let i = 0;
+        const result = [];
+        while (cursor && i < limit) {
+            result.push(cursor.value);
+            i++;
+            cursor = await cursor.continue();
+        }
+        return result;
+    }
+
+    /**
+     * @param limit {Number}
+     * @param tx {IDBTransaction}
+     * @returns {Promise<Paged>}
+     */
+    async active(limit = null) {
+        const db = await Db();
+        const tx = db.transaction(Store);
+        let cursor = await tx.objectStore(Store).index('stop')
+            .openCursor(IDBKeyRange.upperBound(Number.MAX_SAFE_INTEGER - 1), 'prev');
+        let i = 0;
+        const result = [];
+        while (cursor && i < limit) {
+            result.push(cursor.value);
+            i++;
+            cursor = await cursor.continue();
+        }
+        return result;
     }
 
     /**
@@ -77,7 +104,7 @@ class Session {
         tx ??= (await Db()).transaction(Store, 'readwrite');
 
         if (model.id === undefined) {
-            const last = await this.last(tx);
+            const last = (await this.last(1, tx))[0];
             model.id = last === undefined ? 0 : last.id + 1;
         }
         return await tx.store.put(model);
