@@ -1,5 +1,6 @@
 import {Db, textSearch, tokenize} from "./db.js";
 import {Ranked, Paged} from "./types.js";
+import {base} from "../../vite.config.js";
 
 const Store = 'exercises';
 
@@ -18,12 +19,16 @@ class Exercise {
     }
 
     async reload() {
-        const json = await fetch('/exercises.json').then(res => res.json());
-        const db = await Db();
-        const tx = db.transaction(Store, 'readwrite');
-        const adds = json.data.map(async (row) => {
-            return await tx.store.get(row.name) || this.upsert(row, tx);
-        });
+        // try {
+            const json = await fetch(`${base}exercises.json`).then(res => res.json());
+            const db = await Db();
+            const tx = db.transaction(Store, 'readwrite');
+            const adds = json.data.map(async (row) => {
+                return await tx.store.get(row.name) || this.upsert(row, tx);
+            });
+        // } catch (e) {
+        //     console.log(e)
+        // }
 
         await Promise.all([
             ...adds,
