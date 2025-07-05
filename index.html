@@ -16,6 +16,7 @@
         import {SingleRoutine} from "./src/elements/single-routine.js";
         import {RoutineListWidget} from "./src/elements/routine-list-widget.js";
         import {SessionListWidget} from "./src/elements/session-list-widget.js";
+        import {TrakHeader} from "./src/elements/trak-header.js";
 
         import {SingleSession} from "./src/views/single-session.js";
         import {ManageSessions} from "./src/views/manage-sessions.js";
@@ -30,19 +31,7 @@
     </script>
 </head>
 <body class="container-fluid">
-    <header>
-        <nav>
-            <ul>
-                <li><h1><a href="/" class="contrast" data-navigo>Trak Lift</a></h1></li>
-            </ul>
-            <ul>
-                <li><a href="/about" data-navigo>Help</a></li>
-                <li><a href="/exercises" data-navigo>Exercises</a></li>
-                <li><a href="/routines" data-navigo>Routines</a></li>
-                <li><a href="/sessions" data-navigo>Sessions</a></li>
-            </ul>
-        </nav>
-    </header>
+    <trak-header></trak-header>
     <main id="app">
     </main>
 </body>

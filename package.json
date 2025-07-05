@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test --experimental-test-coverage",
-    "dev": "vite --host",
+    "dev": "vite",
+    "dev-host": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },

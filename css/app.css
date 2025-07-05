@@ -93,3 +93,8 @@ label.fit-size {
     display: flex;
     flex-direction: column;
 }
+
+.nav-focus {
+    color: var(--pico-contrast);
+    text-decoration: var(--pico-contrast) underline;
+}
