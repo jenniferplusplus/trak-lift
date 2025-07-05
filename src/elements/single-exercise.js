@@ -16,7 +16,7 @@ export class SingleExercise extends TrakElement {
     constructor() {
         super();
         this.data = undefined;
-        this.status = false;
+        this.isNew = false;
         this.saved = false;
         this.error = '';
     }
@@ -33,12 +33,14 @@ export class SingleExercise extends TrakElement {
         this.name = evt.target.value;
         this.data.name = this.name;
         this.saved = false;
+        this.error = undefined;
     }
 
     _onKindChange(evt) {
         this.data = Object.assign(build(evt.target.value), this.data);
         this.data.kind = evt.target.value;
         this.saved = false;
+        this.error = undefined;
 
         function build(kind) {
             switch (kind) {
@@ -89,7 +91,7 @@ export class SingleExercise extends TrakElement {
         const details = this.data !== undefined
             ? html`
                     <dl>
-                        ${this.status
+                        ${this.isNew
                                 ? html`
                                     <dt>${this.renderNew()}</dt>`
                                 : html`

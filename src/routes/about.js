@@ -7,6 +7,6 @@ import {html} from "lit";
  */
 export default function about(match) {
     Render(html`
-        <h1>Welcome about!</h1>
+        <about-view></about-view>
     `);
 }

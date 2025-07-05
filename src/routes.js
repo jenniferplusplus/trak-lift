@@ -21,7 +21,7 @@ function Routes() {
         .on('/exercises', Exercises)
         .on('/exercise/:name', SingleExercise)
         .on('/exercise', SingleExercise)
-        .on('/', Home)
+        .on('/', About)
         .on('/about', About);
 }
 
