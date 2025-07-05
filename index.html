@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="/css/pico.jade.min.css"/>
     <link rel="stylesheet" href="/css/app.css"/>
     <script type="module">
-        import {ContextRoot} from '@lit/context';
-
         import {ManageExercises} from "/src/elements/manage-exercises.js";
         import {SingleExercise} from "/src/elements/single-exercise.js";
         import {ManageRoutines} from "/src/elements/mange-routines.js";
@@ -27,7 +25,6 @@
 
         window.addEventListener("load", () => Routes.resolve());
 
-        const root = new ContextRoot();
         root.attach(document.getElementById('app'));
     </script>
 </head>
