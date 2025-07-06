@@ -51,7 +51,8 @@ export class AboutView extends TrakElement {
         <h2>Contributing</h2>
         <p>If you'd like to help make this app better, you can 
             <a href="https://github.com/jenniferplusplus/trak-lift">contribute on Github</a>
-        </p>`
+        </p>
+        <a href="https://www.flaticon.com/free-icons/checklist" title="checklist icons">App Icon by Freepik</a>`
     }
 }
 
