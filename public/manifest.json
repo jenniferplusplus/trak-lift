@@ -1,7 +1,7 @@
 {
   "id": "https://jenniferplusplus.github.io/trak-lift/",
   "name": "Trak Lift",
-  "start_url": "../routines",
+  "start_url": "../",
   "scope": "../",
   "display": "standalone",
   "description": "An easy-to-use exercise tracker, with zero surveillance and zero scams",
