@@ -43,6 +43,15 @@ export class ManageExercises extends TrakElement {
         this.page = this.data.next(this.pageNumber);
     }
 
+    async _onDownload() {
+        await Exercise.reload();
+        const v = await Exercise.all();
+        this.data = v;
+        this.page = this.data.next();
+        this.all = v;
+        this.requestUpdate();
+    }
+
     /**
      *
      * @param {InputEvent} evt
@@ -71,6 +80,7 @@ export class ManageExercises extends TrakElement {
                 <p>Page: ${this.pageNumber + 1} of ${this.data.pages()}</p>
                 <button @click="${this._onBack}" disabled="${this.pageNumber > 0 ? nothing : ""}">Back</button>
                 <button @click="${this._onNext}" disabled="${this.pageNumber + 1 < this.data.pages() ? nothing : ""}">Next</button>
+                <button @click="${this._onDownload}">Download</button>
             </div>
             <p><a href="/exercise" @click="${_onNavigate}" data-navigo>new exercise</a></p>
             <div>
