@@ -20,7 +20,7 @@ class Exercise {
 
     async reload() {
         // try {
-            const res = await fetch(`/exercises.json`);//.then(res => res.json());
+            const res = await fetch(`${base}exercises.json`);//.then(res => res.json());
             console.log('reload', 'fetch', res);
             const json = await res.json();
             console.log('reload', 'json', json);
