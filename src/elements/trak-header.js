@@ -23,26 +23,32 @@ export class TrakHeader extends TrakElement {
         return result;
     }
 
+    setPage() {
+        if (window.location.pathname.startsWith(`${base}about`)) {
+            this.page = 'about';
+        } else if (window.location.pathname.startsWith(`${base}routine`)) {
+            this.page = 'routine';
+        } else if (window.location.pathname.startsWith(`${base}exercise`)) {
+            this.page = 'exercise';
+        } else if (window.location.pathname.startsWith(`${base}session`)) {
+            this.page = 'session';
+        } else {
+            this.page = 'home';
+        }
+    }
+
+    _onNavigate(evt) {
+        _onNavigate(evt);
+        this.setPage();
+    }
+
     connectedCallback() {
         super.connectedCallback();
-        const setPage = () => {
-            if (window.location.pathname.startsWith('/about')) {
-                this.page = 'about';
-            } else if (window.location.pathname.startsWith('/routine')) {
-                this.page = 'routine';
-            } else if (window.location.pathname.startsWith('/exercise')) {
-                this.page = 'exercise';
-            } else if (window.location.pathname.startsWith('/session')) {
-                this.page = 'session';
-            } else {
-                this.page = 'home';
-            }
-        }
-        setPage();
+        this.setPage();
 
-        window.addEventListener('popstate', function (evt) {
+        window.addEventListener('popstate', (evt) => {
             console.log('trak-header popstate', evt);
-            setPage();
+            this.setPage();
         });
 
     }
@@ -52,13 +58,13 @@ export class TrakHeader extends TrakElement {
             <header>
                 <nav>
                     <ul>
-                        <li><h1><a href="/" @click="${_onNavigate}" class="contrast" data-navigo>Trak Lift</a></h1></li>
+                        <li><h1><a href="/" @click="${this._onNavigate}" class="contrast" data-navigo>Trak Lift</a></h1></li>
                     </ul>
                     <ul>
-                        <li><a href="/about" @click="${_onNavigate}" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
-                        <li><a href="/exercises" @click="${_onNavigate}" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>
-                        <li><a href="/routines" @click="${_onNavigate}" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>
-                        <li><a href="/sessions" @click="${_onNavigate}" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>
+                        <li><a href="/about" @click="${this._onNavigate}" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
+                        <li><a href="/exercises" @click="${this._onNavigate}" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>
+                        <li><a href="/routines" @click="${this._onNavigate}" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>
+                        <li><a href="/sessions" @click="${this._onNavigate}" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>
                     </ul>
                 </nav>
             </header>`;
