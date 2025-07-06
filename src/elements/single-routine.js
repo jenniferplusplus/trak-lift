@@ -5,6 +5,7 @@ import RoutineRepo from '../data/routine.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
 import {base} from '../../vite.config.js';
+import {_onNavigate} from "../routes.js";
 
 export class SingleRoutine extends TrakElement {
     static get properties() {
@@ -132,7 +133,7 @@ export class SingleRoutine extends TrakElement {
         if (this.status === 'not found')
             return html`
                 <p>not found</p>
-                <p><a href="${base}routine" data-navigo>add new routine</a></p>`;
+                <p><a href="/routine" @click="${_onNavigate}" data-navigo>add new routine</a></p>`;
 
         return html`
             <h1>${this.renderName()}</h1>

@@ -3,7 +3,7 @@ import {html, nothing} from "lit";
 import {repeat} from 'lit/directives/repeat.js';
 import Routines from '../data/routine.js';
 import {Paged} from "../data/types.js";
-import Routes from '../routes.js'
+import Routes, {_onNavigate} from '../routes.js'
 import {base} from '../../vite.config.js';
 
 export class ManageRoutines extends TrakElement {
@@ -71,10 +71,6 @@ export class ManageRoutines extends TrakElement {
         this.pageNumber = 0;
     }
 
-    _onStart(id) {
-        Routes.navigate(`/session/start/${id}`);
-    }
-
     render() {
         return html`
             <div>
@@ -84,7 +80,7 @@ export class ManageRoutines extends TrakElement {
                     Next
                 </button>
             </div>
-            <p><a href="${base}/routine" data-navigo>new routine</a></p>
+            <p><a href="/routine" @click="${_onNavigate}" data-navigo>new routine</a></p>
             <div>
                 <label>
                     Search

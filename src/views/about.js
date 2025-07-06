@@ -1,6 +1,7 @@
 import {TrakElement} from "../elements/trak-element.js";
 import {html} from "lit-html";
 import {base} from '../../vite.config.js';
+import {_onNavigate} from "../routes.js";
 
 export class AboutView extends TrakElement {
     render() {
@@ -10,20 +11,20 @@ export class AboutView extends TrakElement {
             routines whenever you do a workout.
         </p>
         <ol>
-            <li><a href="${base}routine" data-navigo>Create a Routine</a>
+            <li><a href="/routine" @click="${_onNavigate}" data-navigo>Create a Routine</a>
                 <ul>
                     <li>Give it a name (you can't rename routines after they're created)</li>
                     <li>Search for exercises you want</li>
                     <li>Add them to the routine</li>
                     <li>Set the weight, reps, sets, etc</li>
-                    <li>You can <a href="${base}exercise" data-navigo>create new exercises</a> if you need to</li>
+                    <li>You can <a href="/exercise" @click="${_onNavigate}" data-navigo>create new exercises</a> if you need to</li>
                 </ul>
             </li>
-            <li>Open your <a href="${base}routines" data-navigo>list of routines</a></li>
+            <li>Open your <a href="/routines" @click="${_onNavigate}" data-navigo>list of routines</a></li>
             <li>Start one of them</li>
             <li>Update your progress</li>
             <li>Click Finish when you're done</li>
-            <li>You can <a href="${base}sessions" data-navigo>review your recent sessions</a> whenever you want</li>
+            <li>You can <a href="/sessions" @click="${_onNavigate}" data-navigo>review your recent sessions</a> whenever you want</li>
         </ol>
         <h2>About</h2>
         <p>

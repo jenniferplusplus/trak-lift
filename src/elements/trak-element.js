@@ -1,4 +1,5 @@
 import {css, LitElement} from 'lit'
+import Routes from "../routes.js";
 
 /**
  * An example element.
@@ -7,16 +8,15 @@ import {css, LitElement} from 'lit'
  * @csspart button - The button
  */
 export class TrakElement extends LitElement {
-  constructor() {
-    super()
-  }
+    constructor() {
+        super()
+    }
 
-  static get styles() {
-    return getGlobalStyleSheets();
-  }
+    static get styles() {
+        return getGlobalStyleSheets();
+    }
 
-    connectedCallback()
-    {
+    connectedCallback() {
         super.connectedCallback();
         useGlobalStyles(this.shadowRoot);
     }
@@ -25,21 +25,21 @@ export class TrakElement extends LitElement {
 let globalSheets = null;
 
 function getGlobalStyleSheets() {
-  if (globalSheets === null) {
-    globalSheets = Array.from(document.styleSheets)
-        .map(x => {
-          const sheet = new CSSStyleSheet();
-          const css = Array.from(x.cssRules).map(rule => rule.cssText).join(' ');
-          sheet.replaceSync(css);
-          return sheet;
-        });
-  }
+    if (globalSheets === null) {
+        globalSheets = Array.from(document.styleSheets)
+            .map(x => {
+                const sheet = new CSSStyleSheet();
+                const css = Array.from(x.cssRules).map(rule => rule.cssText).join(' ');
+                sheet.replaceSync(css);
+                return sheet;
+            });
+    }
 
-  return globalSheets;
+    return globalSheets;
 }
 
 function useGlobalStyles(shadowRoot) {
-  shadowRoot.adoptedStyleSheets.push(
-      ...getGlobalStyleSheets()
-  );
+    shadowRoot.adoptedStyleSheets.push(
+        ...getGlobalStyleSheets()
+    );
 }

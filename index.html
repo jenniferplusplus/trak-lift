@@ -24,10 +24,24 @@
         import Routes from "/src/routes.js";
 
         window.addEventListener("load", () => Routes.resolve());
+        window.addEventListener("unload", () => alert('fuck'))
     </script>
 </head>
 <body class="container-fluid">
     <trak-header></trak-header>
+<!--    <header>-->
+<!--        <nav>-->
+<!--            <ul>-->
+<!--                <li><h1><a href="/" class="contrast" data-navigo>Trak Lift</a></h1></li>-->
+<!--            </ul>-->
+<!--            <ul>-->
+<!--                <li><a href="/about" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>-->
+<!--                <li><a href="/exercises" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>-->
+<!--                <li><a href="/routines" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>-->
+<!--                <li><a href="/sessions" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </header>-->
     <main id="app">
     </main>
 </body>

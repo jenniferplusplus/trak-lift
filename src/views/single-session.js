@@ -7,6 +7,7 @@ import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine, Ses
 import {repeat} from "lit/directives/repeat.js";
 import {defaultValue, duration} from '../text.js';
 import {base} from '../../vite.config.js';
+import {_onNavigate} from "../routes.js";
 
 export class SingleSession extends TrakElement {
     static get properties() {
@@ -212,7 +213,7 @@ export class SingleSession extends TrakElement {
         if (this.status === 'not found')
             return html`
                 <p>not found</p>
-                <p><a href="${base}routines" data-navigo>start a new session from your routines</a></p>`;
+                <p><a href="/routines" @click="${_onNavigate}" data-navigo>start a new session from your routines</a></p>`;
 
         return html`
             <div class="end-controls">
@@ -245,8 +246,10 @@ export class SingleSession extends TrakElement {
 
     renderName() {
         if (this.status === 'found')
-            return html`Session ${this.data.id} from <a href="${base}routine/${this.data.routine}" data-navigo>${this.data.routine}</a>`;
-        return html`New session from <a href="${base}routine/${this.data.routine}" data-navigo>${this.data.routine}</a>`;
+            return html`Session ${this.data.id} from <a href="/routine/${this.data.routine}"
+                                                        @click="${_onNavigate}" data-navigo>${this.data.routine}</a>`;
+        return html`New session from <a href="/routine/${this.data.routine}"
+                                        @click="${_onNavigate}" data-navigo>${this.data.routine}</a>`;
     }
 }
 

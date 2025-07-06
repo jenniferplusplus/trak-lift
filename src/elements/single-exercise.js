@@ -3,6 +3,7 @@ import {html, nothing} from "lit";
 import ExerciseRepo from '../data/exercise.js'
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight} from "../models.js";
 import {base} from '../../vite.config.js';
+import {_onNavigate} from "../routes.js";
 
 export class SingleExercise extends TrakElement {
     static get properties() {
@@ -118,7 +119,7 @@ export class SingleExercise extends TrakElement {
                     <p class="error-message">${this.error}</p>
             `
             : html`<p>not found</p>
-                <p><a href="${base}exercise" data-navigo>add new exercise</a></p>`;
+                <p><a href="/exercise" @click="${_onNavigate}" data-navigo>add new exercise</a></p>`;
         return html`
             ${details}
         `;

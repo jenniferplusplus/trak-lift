@@ -28,3 +28,8 @@ function Routes() {
 
 const singleton = Routes();
 export default singleton;
+
+export function _onNavigate(evt) {
+    evt.preventDefault();
+    return singleton.navigate(evt.currentTarget?.pathname ?? evt.target.pathname)
+}

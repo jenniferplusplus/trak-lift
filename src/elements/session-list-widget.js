@@ -8,6 +8,7 @@ import {duration} from "../text.js";
 import SessionRepo from "../data/session.js";
 import {ManageSessions} from "../views/manage-sessions.js";
 import {base} from '../../vite.config.js';
+import {_onNavigate} from "../routes.js";
 
 export class SessionListWidget extends TrakElement {
     static get properties() {
@@ -79,7 +80,7 @@ export class SessionListWidget extends TrakElement {
                 <dt class="end-controls">
                     <div class="vertical">
                         <span>
-                            <a href="${base}/session/${this.data.id}" data-navigo>
+                            <a href="/session/${this.data.id}" @click="${_onNavigate}" data-navigo>
                                 ${!!this.data.start ? html`<span>${new Date(this.data.start).toLocaleDateString()}</span>` : 'Not Started'}
                             </a> ${state()}
                         </span>
