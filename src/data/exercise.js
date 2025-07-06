@@ -22,7 +22,7 @@ class Exercise {
         // try {
             const res = await fetch(`/exercises.json`);//.then(res => res.json());
             console.log('reload', 'fetch', res);
-            const json = res.json();
+            const json = await res.json();
             console.log('reload', 'json', json);
             const db = await Db();
             const tx = db.transaction(Store, 'readwrite');
