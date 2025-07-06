@@ -2,7 +2,7 @@ import {TrakElement} from "./trak-element.js";
 import {html, nothing} from "lit";
 import ExerciseRepo from '../data/exercise.js'
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight} from "../models.js";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class SingleExercise extends TrakElement {

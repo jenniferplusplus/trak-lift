@@ -4,7 +4,7 @@ import ExerciseRepo from '../data/exercise.js'
 import RoutineRepo from '../data/routine.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class SingleRoutine extends TrakElement {

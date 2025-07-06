@@ -7,7 +7,7 @@ import {Exercise} from "../models.js";
 import {duration} from "../text.js";
 import SessionRepo from "../data/session.js";
 import {ManageSessions} from "../views/manage-sessions.js";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class SessionListWidget extends TrakElement {

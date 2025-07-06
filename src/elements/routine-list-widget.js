@@ -3,7 +3,7 @@ import {html} from "lit";
 import {repeat} from "lit/directives/repeat.js";
 import Routes, {_onNavigate} from "../routes.js";
 import RoutinesRepo from '../data/routine.js';
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 
 export class RoutineListWidget extends TrakElement {
     static get properties() {

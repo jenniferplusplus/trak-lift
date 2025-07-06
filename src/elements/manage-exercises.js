@@ -3,7 +3,7 @@ import {html, nothing} from "lit";
 import { repeat } from 'lit/directives/repeat.js';
 import Exercise from "../data/exercise.js";
 import {Paged} from "../data/types.js";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class ManageExercises extends TrakElement {

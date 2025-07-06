@@ -1,6 +1,6 @@
 import {Db, textSearch, tokenize} from "./db.js";
 import {Ranked, Paged} from "./types.js";
-import {base} from "../../vite.config.js";
+import {base} from "../../trak.config.js";
 
 const Store = 'exercises';
 

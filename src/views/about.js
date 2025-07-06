@@ -1,6 +1,6 @@
 import {TrakElement} from "../elements/trak-element.js";
 import {html} from "lit-html";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class AboutView extends TrakElement {

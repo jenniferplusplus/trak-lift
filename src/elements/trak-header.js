@@ -1,6 +1,6 @@
 import {TrakElement} from "./trak-element.js";
 import {html} from "lit-html";
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import Routes, {_onNavigate} from "../routes.js";
 
 export class TrakHeader extends TrakElement {

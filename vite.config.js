@@ -1,4 +1,4 @@
-export const base = '/trak-lift/';
+import {base} from './trak.config.js'
 
 export default {
     base: base,

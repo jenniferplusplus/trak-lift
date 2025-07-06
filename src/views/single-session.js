@@ -6,7 +6,7 @@ import ExerciseRepo from '../data/exercise.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine, Session} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
 import {defaultValue, duration} from '../text.js';
-import {base} from '../../vite.config.js';
+import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
 export class SingleSession extends TrakElement {

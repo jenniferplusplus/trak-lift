@@ -7,7 +7,7 @@ import Routines from './routes/manage-routines.js';
 import SingleRoutine from './routes/single-routine.js';
 import SingleSession from './routes/single-session.js';
 import Sessions from './routes/manage-sessions.js'
-import {base} from '../vite.config.js'
+import {base} from '../trak.config.js'
 
 function Routes() {
     const router = new Navigo(base);

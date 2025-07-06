@@ -1,6 +1,5 @@
 import test, {suite, before} from 'node:test';
 import assert from 'node:assert/strict';
-import {base} from '../vite.config.js'
 
 import Routes from "../src/routes.js";
 
