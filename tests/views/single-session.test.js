@@ -2,7 +2,6 @@ import test, {suite, beforeEach, mock} from 'node:test';
 import {ok} from "node:assert/strict";
 import {Db} from "../../src/data/db.js";
 
-import Window from 'window';
 import 'fake-indexeddb/auto';
 
 import {Routine, Session, Exercise} from '../../src/models.js'
