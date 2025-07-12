@@ -2,6 +2,9 @@ import {base} from './trak.config.js'
 
 export default {
     base: base,
+    resolve: {
+        preserveSymlinks: true
+    },
     build: {
         rollupOptions: {
             input: {
