@@ -144,4 +144,3 @@ export class SingleExercise extends TrakElement {
     }
 }
 
-window.customElements.define('single-exercise', SingleExercise);

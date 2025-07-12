@@ -55,4 +55,3 @@ export class RoutineListWidget extends TrakElement {
     }
 }
 
-window.customElements.define('routine-list-widget', RoutineListWidget);

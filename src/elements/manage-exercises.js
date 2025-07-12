@@ -119,4 +119,3 @@ export class ManageExercises extends TrakElement {
     }
 }
 
-window.customElements.define('manage-exercises', ManageExercises);

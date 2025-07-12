@@ -166,7 +166,7 @@ export class SingleSession extends TrakElement {
     async _onUpdateRoutine() {
         try {
             const routine = await RoutineRepo.get(this.data.routine);
-            routine.exercises = this.data.exercises;
+            routine.exercises = this.data.exercises.map(ex => filterClone(ex, 'start', 'stop'));
             await RoutineRepo.upsert(routine);
             this.saved = true;
             this.modified = false;
@@ -377,4 +377,11 @@ function searchResultTemplate(thisArg, ex) {
         </li>`
 }
 
-window.customElements.define('single-session', SingleSession);
+function filterClone (object, ...filterKeys){
+    const result = {...object};
+    while(filterKeys.length){
+        delete result[filterKeys.pop()];
+    }
+    return result;
+}
+

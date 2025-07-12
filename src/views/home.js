@@ -7,4 +7,3 @@ export class Home extends TrakElement {
     }
 }
 
-window.customElements.define('home-view', Home);

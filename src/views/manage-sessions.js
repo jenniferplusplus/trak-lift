@@ -36,4 +36,3 @@ export class ManageSessions extends TrakElement {
         </dl>`
     }
 }
-window.customElements.define('manage-sessions', ManageSessions);

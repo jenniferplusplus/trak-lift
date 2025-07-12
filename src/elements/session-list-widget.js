@@ -96,4 +96,3 @@ export class SessionListWidget extends TrakElement {
             </div>`;
     }
 }
-window.customElements.define('session-list-widget', SessionListWidget);
