@@ -70,5 +70,3 @@ export class TrakHeader extends TrakElement {
             </header>`;
     }
 }
-
-window.customElements.define('trak-header', TrakHeader)

@@ -56,4 +56,3 @@ export class AboutView extends TrakElement {
     }
 }
 
-window.customElements.define('about-view', AboutView);

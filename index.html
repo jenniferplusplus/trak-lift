@@ -12,19 +12,7 @@
     <link rel="stylesheet" href="/css/pico.jade.min.css"/>
     <link rel="stylesheet" href="/css/app.css"/>
     <script type="module">
-        import {ManageExercises} from "/src/elements/manage-exercises.js";
-        import {SingleExercise} from "/src/elements/single-exercise.js";
-        import {ManageRoutines} from "/src/elements/mange-routines.js";
-        import {SingleRoutine} from "./src/elements/single-routine.js";
-        import {RoutineListWidget} from "./src/elements/routine-list-widget.js";
-        import {SessionListWidget} from "./src/elements/session-list-widget.js";
-        import {TrakHeader} from "./src/elements/trak-header.js";
-
-        import {SingleSession} from "./src/views/single-session.js";
-        import {ManageSessions} from "./src/views/manage-sessions.js";
-        import {Home} from "./src/views/home.js";
-        import {AboutView} from "./src/views/about.js";
-
+        import './src/elements.js';
         import Routes from "/src/routes.js";
 
         window.addEventListener("load", () => Routes.resolve());

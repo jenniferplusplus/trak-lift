@@ -248,4 +248,3 @@ function searchResultTemplate(thisArg, ex) {
         </li>`
 }
 
-window.customElements.define('single-routine', SingleRoutine);

@@ -94,4 +94,3 @@ export class ManageRoutines extends TrakElement {
     }
 }
 
-window.customElements.define('manage-routines', ManageRoutines);

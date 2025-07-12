@@ -77,6 +77,7 @@ export class Session {
 
     constructor() {
         this.stop = Number.MAX_SAFE_INTEGER;
+        this.exercises = [];
     }
 }
 
