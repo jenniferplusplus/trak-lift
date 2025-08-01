@@ -1,13 +1,12 @@
-import {TrakElement} from "./trak-element.js";
+import {TrakElement} from "../elements/trak-element.js";
 import {html, nothing} from "lit";
 import ExerciseRepo from '../data/exercise.js'
 import RoutineRepo from '../data/routine.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
-import {base} from '../../trak.config.js';
 import {_onNavigate} from "../routes.js";
 
-export class SingleRoutine extends TrakElement {
+export class SingleRoutineView extends TrakElement {
     static get properties() {
         return {
             name: {type: String, reflect: true},
@@ -164,7 +163,7 @@ export class SingleRoutine extends TrakElement {
 
 /**
  *
- * @param {SingleRoutine} thisArg
+ * @param {SingleRoutineView} thisArg
  * @param {Exercise} ex
  * @returns {TemplateResult<1>}
  */
@@ -182,7 +181,7 @@ function exerciseTemplate(thisArg, ex, i) {
 }
 
 /**
- * @param {SingleRoutine} thisArg
+ * @param {SingleRoutineView} thisArg
  * @param {Exercise} ex
  * @param {Number} i
  */
@@ -235,7 +234,7 @@ function exWeightControls(thisArg, ex, i) {
 }
 
 /**
- * @param {SingleRoutine} thisArg
+ * @param {SingleRoutineView} thisArg
  * @param ex
  */
 function searchResultTemplate(thisArg, ex) {
