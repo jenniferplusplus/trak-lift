@@ -131,7 +131,7 @@ export class SingleExercise extends TrakElement {
                     </div>
                     <div class="ui-row">
                         <button @click="${this._onDelete}" class="secondary"
-                                disabled="${this.isNew || this.saved || nothing}">Delete
+                                disabled="${(this.isNew && !this.saved) || nothing}">Delete
                         </button>
                     </div>
                     <p class="error-message">${this.error}</p>
