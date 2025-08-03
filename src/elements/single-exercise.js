@@ -2,8 +2,7 @@ import {TrakElement} from "./trak-element.js";
 import {html, nothing} from "lit";
 import ExerciseRepo from '../data/exercise.js'
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight} from "../models.js";
-import {base} from '../../trak.config.js';
-import {_onNavigate} from "../routes.js";
+import {_onNavigate, navigate} from "../routes.js";
 
 export class SingleExercise extends TrakElement {
     static get properties() {
@@ -76,6 +75,17 @@ export class SingleExercise extends TrakElement {
         }
     }
 
+    async _onDelete() {
+        try {
+            await ExerciseRepo.remove(this.data.name);
+            await navigate('/exercises');
+        }
+        catch (e) {
+            console.error(e);
+            this.error = e.message ?? e;
+        }
+    }
+
 
     connectedCallback() {
         super.connectedCallback();
@@ -115,7 +125,15 @@ export class SingleExercise extends TrakElement {
                             </label>
                         </dd>
                     </dl>
-                    <button @click="${this._onSave}">Save</button>${this.saved ? html` ✅` : ''}
+                    <div class="ui-row">
+                        <button @click="${this._onSave}">Save</button>
+                        ${this.saved ? html` ✅` : ''}
+                    </div>
+                    <div class="ui-row">
+                        <button @click="${this._onDelete}" class="secondary"
+                                disabled="${this.isNew || this.saved || nothing}">Delete
+                        </button>
+                    </div>
                     <p class="error-message">${this.error}</p>
             `
             : html`<p>not found</p>

@@ -33,3 +33,7 @@ export function _onNavigate(evt) {
     evt.preventDefault();
     return singleton.navigate(evt.currentTarget?.pathname ?? evt.target.pathname)
 }
+
+export function navigate(path) {
+    return singleton.navigate(path);
+}

@@ -61,6 +61,11 @@ label.fit-size {
     margin-bottom: 2em;
 }
 
+.ui-row {
+    margin-bottom: 2em;
+    display: block;
+}
+
 .data-display {
     font-size: 1.25em;
 
