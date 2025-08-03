@@ -4,7 +4,7 @@ import ExerciseRepo from '../data/exercise.js'
 import RoutineRepo from '../data/routine.js';
 import {Exercise, ExerciseDistance, ExerciseEffort, ExerciseWeight, Routine} from "../models.js";
 import {repeat} from "lit/directives/repeat.js";
-import {_onNavigate} from "../routes.js";
+import {_onNavigate, navigate} from "../routes.js";
 
 export class SingleRoutineView extends TrakElement {
     static get properties() {
@@ -113,6 +113,16 @@ export class SingleRoutineView extends TrakElement {
         }
     }
 
+    async _onDelete() {
+        try {
+            await RoutineRepo.remove(this.data.name);
+            await navigate('/routines');
+        } catch (e) {
+            console.error(e);
+            this.error = e.message ?? e
+        }
+    }
+
     async _onRemove(ex) {
         this.data.exercises.splice(this.data.exercises.indexOf(ex), 1);
         this.requestUpdate('data');
@@ -139,10 +149,14 @@ export class SingleRoutineView extends TrakElement {
             <dl>
                 ${repeat(this.data.exercises, (ex, i) => exerciseTemplate(this, ex, i))}
             </dl>
-            <div>
+            <div class="ui-row">
                 <button @click="${this._onSave}">Save</button>
                 ${this.saved ? html` ✅` : ''}
                 <p class="error-message">${this.error}</p>
+            </div>
+            <div class="ui-row">
+                <button @click="${this._onDelete}" class="secondary"
+                disabled="${(this.status !== 'found' && !this.saved) || nothing}">Delete</button>
             </div>
             <div>
                 <label>Add Exercise
