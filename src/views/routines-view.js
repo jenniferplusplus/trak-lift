@@ -1,4 +1,4 @@
-import {TrakElement} from "./trak-element.js";
+import {TrakElement} from "../elements/trak-element.js";
 import {html, nothing} from "lit";
 import {repeat} from 'lit/directives/repeat.js';
 import Routines from '../data/routine.js';
@@ -6,7 +6,7 @@ import {Paged} from "../data/types.js";
 import Routes, {_onNavigate} from '../routes.js'
 import {base} from '../../trak.config.js';
 
-export class ManageRoutines extends TrakElement {
+export class RoutinesView extends TrakElement {
 
     static get properties() {
         return {

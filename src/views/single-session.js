@@ -288,7 +288,7 @@ function exerciseTemplate(thisArg, ex, i) {
 }
 
 /**
- * @param {SingleRoutine} thisArg
+ * @param {SingleRoutineView} thisArg
  * @param {Exercise} ex
  * @param {Number} i
  */
@@ -364,7 +364,7 @@ function exWeightControls(thisArg, ex, i) {
 }
 
 /**
- * @param {SingleRoutine} thisArg
+ * @param {SingleRoutineView} thisArg
  * @param ex
  */
 function searchResultTemplate(thisArg, ex) {
