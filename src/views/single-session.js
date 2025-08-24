@@ -176,6 +176,16 @@ export class SingleSession extends TrakElement {
         }
     }
 
+    _onUpdated(evt) {
+        if (Array.isArray(evt.data)) {
+            this.data.exercises = evt.data;
+            this.requestUpdate('data');
+            this.modified = true;
+        }
+        else
+            console.warn('updated.data is not an array', evt.data);
+    }
+
     async _onRemove(ex) {
         this.data.exercises.splice(this.data.exercises.indexOf(ex), 1);
         this.requestUpdate('data');
@@ -215,6 +225,7 @@ export class SingleSession extends TrakElement {
                 <p>not found</p>
                 <p><a href="/routines" @click="${_onNavigate}" data-navigo>start a new session from your routines</a></p>`;
 
+
         return html`
             <div class="end-controls">
                 <h1>Session${!!this.data.id ? html` <span>${this.data.id}</span>` : nothing}</h1>
@@ -226,9 +237,11 @@ export class SingleSession extends TrakElement {
                 </span>
             </div>
             <p>${this.renderName()}</p>
-            <dl>
-                ${repeat(this.data.exercises, (ex, i) => exerciseTemplate(this, ex, i))}
-            </dl>
+            ${this.editMode 
+                    ? html`<trak-exercise-data-list .data="${this.data.exercises}" .mode="edit" @updated="${this._onUpdated}" ></trak-exercise-data-list>`
+                    : html`<dl>
+                        ${repeat(this.data.exercises, (ex, i) => exerciseTemplate(this, ex, i))}
+                    </dl>`}
             <div role="group">
                 <button class="full-width" @click="${this._onFinish}" disabled="${Exercise.Stopped(this.data) || nothing}">Finish</button>
                 <button class="full-width secondary" @click="${this._onRestart}" disabled="${!Exercise.Stopped(this.data) || nothing}">Restart</button>
