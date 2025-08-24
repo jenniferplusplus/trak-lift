@@ -1,5 +1,4 @@
 import {html, nothing} from "lit";
-import {Sortable} from "sortablejs/modular/sortable.core.esm.js";
 
 import {TrakElement} from "../elements/trak-element.js";
 import ExerciseRepo from '../data/exercise.js'

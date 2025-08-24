@@ -1,8 +1,6 @@
 import {TrakElement} from "./trak-element.js";
 import {html} from "lit";
 import {repeat} from "lit/directives/repeat.js";
-import {Sortable} from "sortablejs/modular/sortable.core.esm.js";
-import {Routine} from "../models.js";
 
 export class TrakExerciseDataList extends  TrakElement {
     static get properties() {
