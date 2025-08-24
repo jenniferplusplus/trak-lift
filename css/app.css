@@ -56,11 +56,14 @@ label.fit-size {
     flex-grow: 1;
 }
 
-.control-row::after {
-    content: '';
-    display: block;
+.control-row {
     border-bottom: solid 1px;
     margin-bottom: 2em;
+    border-radius: 0 0 0 var(--pico-border-radius);
+}
+
+.fill-row {
+    flex-grow: 1;
 }
 
 .ui-row {
@@ -93,6 +96,18 @@ label.fit-size {
 
 .drag-handle {
     cursor: grab;
+    padding: .5rem;
+    margin-right: .25rem;
+    align-content: center;
+    font-size: 1.5rem;
+    background-color: var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius) 0 0 var(--pico-border-radius);
+}
+
+.control-row.draggable {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .dragging .draggable > * {
@@ -106,4 +121,5 @@ label.fit-size {
     content: '';
     border-radius: var(--pico-border-radius);
     margin-bottom: 2px;
+    width: 100%;
 }

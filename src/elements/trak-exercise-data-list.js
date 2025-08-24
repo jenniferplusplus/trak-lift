@@ -115,6 +115,29 @@ export class TrakExerciseDataList extends  TrakElement {
 
     /**
      * @param evt {Event}
+     * @param i {Number}
+     * @private
+     */
+    _pickup(evt, i) {
+        evt.target.closest('.draggable').draggable = true;
+        evt.preventDefault();
+    }
+
+    /**
+     *
+     * @param evt {TouchEvent}
+     * @private
+     */
+    _putDown(evt) {
+        console.log('_putDown', evt, evt.currentTarget);
+        const target = evt.currentTarget.clientX
+            ? document.elementFromPoint(evt.clientX, evt.clientY)
+            : document.elementFromPoint(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
+        console.log('_putDown', target);
+    }
+
+    /**
+     * @param evt {Event}
      * @param ex {Exercise}
      * @private
      */
@@ -124,6 +147,13 @@ export class TrakExerciseDataList extends  TrakElement {
         event.data = ex;
         this.dispatchEvent(event);
     }
+
+    // updated(changedProperties) {
+    //     for (const el of this.querySelectorAll('.draggable')) {
+    //         console.log(el);
+    //         enableDragDropTouch(el, el);
+    //     }
+    // }
 
     render() {
         return html`<dl id="data"">
@@ -137,10 +167,10 @@ export class TrakExerciseDataList extends  TrakElement {
                               @drop="${(evt) => this._onDrop(evt, ex)}">
                         <span class="drag-handle"
                               @mousedown="${this._setDraggable}"
-                              @touchstart="${this._setDraggable}"
+                              @touchstart="${this._pickup}"
                               @mouseup="${this._unsetDraggable}"
-                              @touchend="${this._unsetDraggable}">⬍</span>
-                        <trak-exercise-data-edit .key="${i}" .data="${ex}">
+                              @touchend="${this._putDown}">⬍</span>
+                        <trak-exercise-data-edit class="fill-row" .key="${i}" .data="${ex}">
                             <button class="inline-btn secondary"
                                     @click="${(evt) => this._onRemove(evt, ex)}">Remove</button>
                         </trak-exercise-data-edit>
