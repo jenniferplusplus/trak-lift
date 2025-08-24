@@ -13,10 +13,10 @@ Most of them do both.
 - [x] Reusable routines
 - [x] Exercise history
 - [x] Zero stalking
+- [x] Reorder exercises
 - [ ] Offline-first Progressive Web App
 - [ ] Progress analytics
 - [ ] Better, more guided onboarding and workflow
-- [ ] Reorder exercises
 - [ ] Data export/import
 
 ## Design
