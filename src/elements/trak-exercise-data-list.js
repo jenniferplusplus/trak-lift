@@ -118,22 +118,74 @@ export class TrakExerciseDataList extends  TrakElement {
      * @param i {Number}
      * @private
      */
-    _pickup(evt, i) {
+    _pickUp(evt, i) {
+        this.shadowRoot.querySelector('.drag-root').classList.add('dragging');
         evt.target.closest('.draggable').draggable = true;
         evt.preventDefault();
     }
 
     /**
-     *
+     * @param evt {TouchEvent}
+     * @private
+     */
+    _passOver(evt) {
+        if (!this.shadowRoot.querySelector('.drag-root').classList.contains('dragging'))
+            return;
+        const target = this._getTouchTarget(evt);
+        this.shadowRoot.querySelectorAll('.drop-target')
+            .forEach(el => {
+                if (el !== target) {
+                    el.classList.remove('drop-target');
+                }
+            });
+        target?.classList.add('drop-target');
+    }
+
+    /**
      * @param evt {TouchEvent}
      * @private
      */
     _putDown(evt) {
-        console.log('_putDown', evt, evt.currentTarget);
-        const target = evt.currentTarget.clientX
-            ? document.elementFromPoint(evt.clientX, evt.clientY)
-            : document.elementFromPoint(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
-        console.log('_putDown', target);
+        evt.preventDefault();
+        const target = this._getTouchTarget(evt);
+        const source = this._getTouchSource(evt);
+        const dest = this._getTouchDest(target);
+        console.log('_putDown', evt, target, `src: ${source}`, `dest: ${dest}`);
+        this.shadowRoot.querySelectorAll('.drop-target')
+            .forEach(el => {el.classList.remove('drop-target');});
+        this.shadowRoot.querySelector('.drag-root').classList.remove('dragging');
+
+        if (source === dest) return;
+
+        this.data = moveIndex(source, dest, this.data);
+        const event = new Event('updated', {bubbles: true});
+        event.data = this.data;
+        this.dispatchEvent(event);
+    }
+
+    /**
+     * @param evt {TouchEvent}
+     * @private
+     */
+    _putBack(evt) {
+        this.shadowRoot.querySelector('.drag-root').classList.remove('dragging');
+        this.shadowRoot.querySelectorAll('.drop-target')
+            .forEach(el => {el.classList.remove('drop-target');});
+    }
+
+    _getTouchTarget(evt) {
+        return (evt.currentTarget.clientX
+            ? this.shadowRoot.elementFromPoint(evt.clientX, evt.clientY)
+            : this.shadowRoot.elementFromPoint(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY))
+            .closest('.draggable');
+    }
+
+    _getTouchSource(evt) {
+        return evt.target.index;
+    }
+
+    _getTouchDest(el) {
+        return el.index;
     }
 
     /**
@@ -148,28 +200,25 @@ export class TrakExerciseDataList extends  TrakElement {
         this.dispatchEvent(event);
     }
 
-    // updated(changedProperties) {
-    //     for (const el of this.querySelectorAll('.draggable')) {
-    //         console.log(el);
-    //         enableDragDropTouch(el, el);
-    //     }
-    // }
-
     render() {
-        return html`<dl id="data"">
+        return html`<dl id="data" class="drag-root">
             ${repeat(this.data, (ex, i) => 
                     html`<div class="control-row draggable"
+                              .index="${i}"
                               @dragenter="${this._onDragEnter}"
                               @dragleave="${this._onDragleave}"
                               @dragstart="${(evt) => this._onDragStart(evt, i)}"
                               @dragover="${this._onDragOver}"
                               @dragend="${this._onDragEnd}"
-                              @drop="${(evt) => this._onDrop(evt, ex)}">
+                              @drop="${(evt) => this._onDrop(evt, ex)}"
+                              @touchmove="${this._passOver}">
                         <span class="drag-handle"
+                              .index="${i}"
                               @mousedown="${this._setDraggable}"
-                              @touchstart="${this._pickup}"
+                              @touchstart="${this._pickUp}"
                               @mouseup="${this._unsetDraggable}"
-                              @touchend="${this._putDown}">⬍</span>
+                              @touchend="${this._putDown}"
+                              @touchcancel="${this._putBack}">⬍</span>
                         <trak-exercise-data-edit class="fill-row" .key="${i}" .data="${ex}">
                             <button class="inline-btn secondary"
                                     @click="${(evt) => this._onRemove(evt, ex)}">Remove</button>

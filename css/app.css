@@ -15,10 +15,20 @@ dt {
 
 dd {
     font-size: 1rem;
+    margin-left: 1rem;
 }
 
 ul li {
     list-style: none;
+}
+
+input[type="number"] {
+    appearance: textfield; /* textfield also works! */
+}
+
+input[type="number"]:focus,
+input[type="number"]:hover {
+    appearance: auto;
 }
 
 input.fit-size {
@@ -32,7 +42,7 @@ label.fit-size {
 .inline-controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: .5em;
 }
 
 .end-controls {
@@ -64,6 +74,7 @@ label.fit-size {
 
 .fill-row {
     flex-grow: 1;
+    max-width: calc(100% - 2.5rem);
 }
 
 .ui-row {
@@ -122,4 +133,16 @@ label.fit-size {
     border-radius: var(--pico-border-radius);
     margin-bottom: 2px;
     width: 100%;
+}
+
+@media screen and (min-width:420px){
+    .inline-controls {
+        gap: 1em;
+    }
+    .fill-row {
+        max-width: revert;
+    }
+    dd {
+        margin-left: revert;
+    }
 }
