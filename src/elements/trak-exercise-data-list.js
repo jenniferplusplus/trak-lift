@@ -12,23 +12,12 @@ export class TrakExerciseDataList extends  TrakElement {
         }
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        Sortable.create(this, {
-            animation: 150,
-            handle: '.drag-handle',
-            onStart: (evt) => console.log('onStart', evt),
-            onEnd: (evt) => console.log('onEnd', evt),
-        });
-    }
-
     /**
      *
      * @param evt {MouseEvent}
      * @private
      */
     _setDraggable(evt) {
-        console.log('_setDraggable', evt);
         evt.target.parentElement.draggable = true;
         evt.stopPropagation();
     }
@@ -39,7 +28,6 @@ export class TrakExerciseDataList extends  TrakElement {
      * @private
      */
     _unsetDraggable(evt) {
-        console.log('_unsetDraggable', evt);
         evt.target.parentElement.draggable = false;
         evt.stopPropagation();
     }
@@ -52,7 +40,6 @@ export class TrakExerciseDataList extends  TrakElement {
     _onDragStart(evt, i) {
         evt.target.parentElement.classList.add('dragging');
         evt.dataTransfer.setData('text/index', i.toString());
-        console.log('_onDragStart', evt);
     }
 
     /**
@@ -68,7 +55,6 @@ export class TrakExerciseDataList extends  TrakElement {
      * @private
      */
     _onDragEnter(evt) {
-        console.log('_onDragEnter', evt, evt.target);
         if (evt.target.classList.contains('draggable'))
             evt.target.classList.add('drop-target');
         evt.preventDefault();
@@ -79,7 +65,6 @@ export class TrakExerciseDataList extends  TrakElement {
      * @private
      */
     _onDragleave(evt) {
-        console.log('_onDragleave', evt);
         evt.target.classList.remove('drop-target');
         evt.stopPropagation();
     }
@@ -101,7 +86,6 @@ export class TrakExerciseDataList extends  TrakElement {
     _onDrop(evt, ex) {
         evt.stopPropagation();
 
-        console.log('_onDrop', evt, ex);
         evt.target.classList.remove('drop-target');
         const source = Number(evt.dataTransfer.getData('text/index'));
         const dest = this.data.indexOf(ex);
@@ -150,7 +134,6 @@ export class TrakExerciseDataList extends  TrakElement {
         const target = this._getTouchTarget(evt);
         const source = this._getTouchSource(evt);
         const dest = this._getTouchDest(target);
-        console.log('_putDown', evt, target, `src: ${source}`, `dest: ${dest}`);
         this.shadowRoot.querySelectorAll('.drop-target')
             .forEach(el => {el.classList.remove('drop-target');});
         this.shadowRoot.querySelector('.drag-root').classList.remove('dragging');
@@ -196,7 +179,7 @@ export class TrakExerciseDataList extends  TrakElement {
     _onRemove(evt, ex) {
         const event = new Event('updated', {bubbles: true});
         this.data = this.data.toSpliced(this.data.indexOf(ex), 1);
-        event.data = ex;
+        event.data = this.data;
         this.dispatchEvent(event);
     }
 

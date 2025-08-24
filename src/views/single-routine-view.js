@@ -101,7 +101,7 @@ export class SingleRoutineView extends TrakElement {
     }
 
     async _onAdd(ex) {
-        this.data.exercises.push({...ex});
+        this.data.exercises = [...this.data.exercises, ex];
         this.requestUpdate('data');
     }
 
@@ -141,8 +141,12 @@ export class SingleRoutineView extends TrakElement {
      * @private
      */
     async _onUpdated(evt) {
-        this.data.exercises = evt.data;
-        // this.requestUpdate('data');
+        if (Array.isArray(evt.data)) {
+            this.data.exercises = evt.data;
+            this.requestUpdate('data');
+        }
+        else
+            console.warn('updated.data is not an array', evt.data);
     }
 
     connectedCallback() {
@@ -156,7 +160,6 @@ export class SingleRoutineView extends TrakElement {
     }
 
     render() {
-        console.log('render')
         if (this.status === 'not found')
             return html`
                 <p>not found</p>
