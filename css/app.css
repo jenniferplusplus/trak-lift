@@ -15,10 +15,20 @@ dt {
 
 dd {
     font-size: 1rem;
+    margin-left: 1rem;
 }
 
 ul li {
     list-style: none;
+}
+
+input[type="number"] {
+    appearance: textfield; /* textfield also works! */
+}
+
+input[type="number"]:focus,
+input[type="number"]:hover {
+    appearance: auto;
 }
 
 input.fit-size {
@@ -32,7 +42,7 @@ label.fit-size {
 .inline-controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: .5em;
 }
 
 .end-controls {
@@ -59,6 +69,12 @@ label.fit-size {
 .control-row {
     border-bottom: solid 1px;
     margin-bottom: 2em;
+    border-radius: 0 0 0 var(--pico-border-radius);
+}
+
+.fill-row {
+    flex-grow: 1;
+    max-width: calc(100% - 2.5rem);
 }
 
 .ui-row {
@@ -87,4 +103,46 @@ label.fit-size {
 .nav-focus {
     color: var(--pico-contrast);
     text-decoration: var(--pico-contrast) underline;
+}
+
+.drag-handle {
+    cursor: grab;
+    padding: .5rem;
+    margin-right: .25rem;
+    align-content: center;
+    font-size: 1.5rem;
+    background-color: var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius) 0 0 var(--pico-border-radius);
+}
+
+.control-row.draggable {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dragging .draggable > * {
+    pointer-events: none;
+}
+
+.drop-target::before {
+    display: block;
+    height: 2lh;
+    border: var(--pico-border-width) solid var(--pico-primary-border);
+    content: '';
+    border-radius: var(--pico-border-radius);
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+@media screen and (min-width:420px){
+    .inline-controls {
+        gap: 1em;
+    }
+    .fill-row {
+        max-width: revert;
+    }
+    dd {
+        margin-left: revert;
+    }
 }

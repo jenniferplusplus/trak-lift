@@ -5,6 +5,8 @@ import {SessionListWidget} from "./elements/session-list-widget.js";
 import {SingleExercise} from "./elements/single-exercise.js";
 import {SingleRoutineView} from "./views/single-routine-view.js";
 import {TrakHeader} from "./elements/trak-header.js";
+import {TrakExerciseDataEdit} from "./elements/trak-exercise-data-edit.js";
+import {TrakExerciseDataList} from "./elements/trak-exercise-data-list.js";
 
 import {Home} from "./views/home.js";
 import {AboutView} from "./views/about.js";
@@ -22,3 +24,5 @@ window.customElements.define('about-view', AboutView);
 window.customElements.define('trak-header', TrakHeader)
 window.customElements.define('single-session', SingleSession);
 window.customElements.define('manage-sessions', ManageSessions);
+window.customElements.define('trak-exercise-data-edit', TrakExerciseDataEdit);
+window.customElements.define('trak-exercise-data-list', TrakExerciseDataList);
