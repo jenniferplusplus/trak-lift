@@ -19,6 +19,7 @@ export class TrakExerciseDataEdit extends TrakElement {
      */
     _onChangeEffort(evt) {
         this.data.effort = parseFloat(evt.target.value);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -27,6 +28,7 @@ export class TrakExerciseDataEdit extends TrakElement {
      */
     _onChangeDistance(evt) {
         this.data.distance = parseFloat(evt.target.value);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -35,6 +37,7 @@ export class TrakExerciseDataEdit extends TrakElement {
      */
     _onChangeWeight(evt) {
         this.data.weight = parseInt(evt.target.value);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -43,6 +46,7 @@ export class TrakExerciseDataEdit extends TrakElement {
      */
     _onChangeReps(evt) {
         this.data.reps = parseInt(evt.target.value);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -51,6 +55,7 @@ export class TrakExerciseDataEdit extends TrakElement {
      */
     _onChangeSets(evt) {
         this.data.sets = parseInt(evt.target.value);
+        this.dispatchUpdated(this.data);
     }
 
     render() {

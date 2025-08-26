@@ -1,6 +1,7 @@
 import {TrakElement} from "./trak-element.js";
 import {html} from "lit";
 import {repeat} from "lit/directives/repeat.js";
+import {DataEvent} from "../DataEvent.js";
 
 export class TrakExerciseDataList extends  TrakElement {
     static get properties() {
@@ -90,9 +91,7 @@ export class TrakExerciseDataList extends  TrakElement {
         if (source === dest) return;
 
         this.data = moveIndex(source, dest, this.data);
-        const event = new Event('updated', {bubbles: true});
-        event.data = this.data;
-        this.dispatchEvent(event);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -139,9 +138,7 @@ export class TrakExerciseDataList extends  TrakElement {
         if (source === dest) return;
 
         this.data = moveIndex(source, dest, this.data);
-        const event = new Event('updated', {bubbles: true});
-        event.data = this.data;
-        this.dispatchEvent(event);
+        this.dispatchUpdated(this.data);
     }
 
     /**
@@ -175,10 +172,17 @@ export class TrakExerciseDataList extends  TrakElement {
      * @private
      */
     _onRemove(evt, ex) {
-        const event = new Event('updated', {bubbles: true});
         this.data = this.data.toSpliced(this.data.indexOf(ex), 1);
-        event.data = this.data;
-        this.dispatchEvent(event);
+        this.dispatchUpdated(this.data);
+    }
+
+    /**
+     * @param evt {DataEvent}
+     * @private
+     */
+    _onUpdated(evt) {
+        evt.stopPropagation();
+        this.dispatchUpdated(this.data);
     }
 
     render() {
@@ -200,7 +204,7 @@ export class TrakExerciseDataList extends  TrakElement {
                               @mouseup="${this._unsetDraggable}"
                               @touchend="${this._putDown}"
                               @touchcancel="${this._putBack}">⬍</span>
-                        <trak-exercise-data-edit class="fill-row" .key="${i}" .data="${ex}">
+                        <trak-exercise-data-edit class="fill-row" .key="${i}" .data="${ex}" @updated="${this._onUpdated}">
                             <button class="inline-btn secondary"
                                     @click="${(evt) => this._onRemove(evt, ex)}">Remove</button>
                         </trak-exercise-data-edit>

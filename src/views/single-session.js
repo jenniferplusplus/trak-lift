@@ -179,8 +179,8 @@ export class SingleSession extends TrakElement {
     _onUpdated(evt) {
         if (Array.isArray(evt.data)) {
             this.data.exercises = evt.data;
-            this.requestUpdate('data');
             this.modified = true;
+            this.requestUpdate('data');
         }
         else
             console.warn('updated.data is not an array', evt.data);

@@ -1,5 +1,5 @@
-import {css, LitElement} from 'lit'
-import Routes from "../routes.js";
+import {LitElement} from 'lit'
+import {DataEvent} from "../DataEvent.js";
 
 /**
  * An example element.
@@ -19,6 +19,11 @@ export class TrakElement extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         useGlobalStyles(this.shadowRoot);
+    }
+
+    dispatchUpdated(data) {
+        const event = new DataEvent(data);
+        this.dispatchEvent(event);
     }
 }
 
