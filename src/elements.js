@@ -7,6 +7,7 @@ import {SingleRoutineView} from "./views/single-routine-view.js";
 import {TrakHeader} from "./elements/trak-header.js";
 import {TrakExerciseDataEdit} from "./elements/trak-exercise-data-edit.js";
 import {TrakExerciseDataList} from "./elements/trak-exercise-data-list.js";
+import {TrakGettingStartedWidget} from "./elements/trak-getting-started-widget.js";
 
 import {Home} from "./views/home.js";
 import {AboutView} from "./views/about.js";
@@ -26,3 +27,4 @@ window.customElements.define('single-session', SingleSession);
 window.customElements.define('manage-sessions', ManageSessions);
 window.customElements.define('trak-exercise-data-edit', TrakExerciseDataEdit);
 window.customElements.define('trak-exercise-data-list', TrakExerciseDataList);
+window.customElements.define('trak-getting-started-widget', TrakGettingStartedWidget);
