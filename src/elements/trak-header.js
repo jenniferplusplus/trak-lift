@@ -61,7 +61,7 @@ export class TrakHeader extends TrakElement {
                         <li><h1><a href="/" @click="${this._onNavigate}" class="contrast" data-navigo>Trak Lift</a></h1></li>
                     </ul>
                     <ul>
-                        <li><a href="/about" @click="${this._onNavigate}" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
+                        <li><a href="${base}about" @click="${this._onNavigate}" class="${this.page === 'about' ? 'nav-focus' : ''}" data-navigo>Help</a></li>
                         <li><a href="/exercises" @click="${this._onNavigate}" class="${this.page === 'exercise' ? 'nav-focus' : ''}" data-navigo>Exercises</a></li>
                         <li><a href="/routines" @click="${this._onNavigate}" class="${this.page === 'routine' ? 'nav-focus' : ''}" data-navigo>Routines</a></li>
                         <li><a href="/sessions" @click="${this._onNavigate}" class="${this.page === 'session' ? 'nav-focus' : ''}" data-navigo>Sessions</a></li>
