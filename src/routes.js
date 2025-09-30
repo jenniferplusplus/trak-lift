@@ -22,7 +22,7 @@ function Routes() {
         .on('/exercises', Exercises)
         .on('/exercise/:name', SingleExercise)
         .on('/exercise', SingleExercise)
-        .on('/', About)
+        .on('/', Home)
         .on('/about', About);
 }
 
