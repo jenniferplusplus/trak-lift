@@ -121,6 +121,13 @@ class Session {
 
         return await tx.store.delete(name);
     }
+
+    async removeAll(tx = null) {
+        tx ??= (await Db()).transaction(Store, 'readwrite');
+
+        const range = IDBKeyRange.lowerBound(0, true)
+        return await tx.store.delete(range);
+    }
 }
 
 const singleton = new Session();

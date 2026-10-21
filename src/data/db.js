@@ -1,12 +1,14 @@
 import {openDB} from 'idb';
 import { length, substr } from 'stringz';
 
+export const version = 13;
+
 /**
  * @returns {Promise<IDBDatabase>}
  * @constructor
  */
 export async function Db() {
-    return openDB("App", 13, {upgrade, blocked, blocking, terminated});
+    return openDB("App", version, {upgrade, blocked, blocking, terminated});
 }
 
 /**

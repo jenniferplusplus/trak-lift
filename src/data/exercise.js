@@ -98,6 +98,13 @@ class Exercise {
 
         return await tx.store.delete(name);
     }
+
+    async removeAll(tx = null) {
+        tx ??= (await Db()).transaction(Store, 'readwrite');
+
+        const range = IDBKeyRange.lowerBound('', true)
+        return await tx.store.delete(range);
+    }
 }
 
 const singleton = new Exercise();

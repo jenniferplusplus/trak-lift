@@ -1,6 +1,7 @@
 import Navigo from 'navigo';
 import Home from './routes/home.js';
 import About from './routes/about.js';
+import Data from './routes/data-export.js'
 import Exercises from './routes/manage-exercises.js';
 import SingleExercise from './routes/single-exercise.js';
 import Routines from './routes/manage-routines.js';
@@ -22,6 +23,7 @@ function Routes() {
         .on('/exercises', Exercises)
         .on('/exercise/:name', SingleExercise)
         .on('/exercise', SingleExercise)
+        .on('/data', Data)
         .on('/', Home)
         .on('/about', About);
 }
