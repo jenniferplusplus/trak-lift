@@ -13,6 +13,7 @@ import {Home} from "./views/home.js";
 import {AboutView} from "./views/about.js";
 import {SingleSession} from "./views/single-session.js";
 import {ManageSessions} from "./views/manage-sessions.js";
+import {DataExport} from "./views/data-export-view.js";
 
 window.customElements.define('manage-exercises', ManageExercises);
 window.customElements.define('manage-routines', RoutinesView);
@@ -27,4 +28,5 @@ window.customElements.define('single-session', SingleSession);
 window.customElements.define('manage-sessions', ManageSessions);
 window.customElements.define('trak-exercise-data-edit', TrakExerciseDataEdit);
 window.customElements.define('trak-exercise-data-list', TrakExerciseDataList);
+window.customElements.define('data-export', DataExport);
 window.customElements.define('trak-getting-started-widget', TrakGettingStartedWidget);

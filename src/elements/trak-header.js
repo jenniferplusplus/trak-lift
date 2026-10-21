@@ -32,6 +32,8 @@ export class TrakHeader extends TrakElement {
             this.page = 'exercise';
         } else if (window.location.pathname.startsWith(`${base}session`)) {
             this.page = 'session';
+        } else if (window.location.pathname.startsWith(`${base}data`)) {
+            this.page = 'data';
         } else {
             this.page = 'home';
         }
